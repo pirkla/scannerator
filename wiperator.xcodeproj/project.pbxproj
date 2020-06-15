@@ -13,6 +13,9 @@
 		713F1A50248194CE00E24C40 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713F1A4F248194CE00E24C40 /* SearchModel.swift */; };
 		715E92192495B71600C0E1C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71FD3D55247F241E001CC553 /* Assets.xcassets */; };
 		7186D4A02492E804006249E9 /* ScannerErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7186D49F2492E804006249E9 /* ScannerErrorExtension.swift */; };
+		719C3F592496C7E700437D90 /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F582496C7E700437D90 /* Computer.swift */; };
+		719C3F5B2496CE9700437D90 /* MobileDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F5A2496CE9700437D90 /* MobileDevice.swift */; };
+		719C3F5D2496D68F00437D90 /* SearchedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F5C2496D68F00437D90 /* SearchedDevice.swift */; };
 		719E6602248481740040ABD9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6601248481740040ABD9 /* LoginView.swift */; };
 		719E6604248481ED0040ABD9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6603248481ED0040ABD9 /* LoginViewModel.swift */; };
 		719E6606248485D50040ABD9 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6605248485D50040ABD9 /* Credentials.swift */; };
@@ -62,6 +65,9 @@
 		713F1A4F248194CE00E24C40 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		7186D49F2492E804006249E9 /* ScannerErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerErrorExtension.swift; sourceTree = "<group>"; };
 		7186D4A124932F44006249E9 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		719C3F582496C7E700437D90 /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
+		719C3F5A2496CE9700437D90 /* MobileDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileDevice.swift; sourceTree = "<group>"; };
+		719C3F5C2496D68F00437D90 /* SearchedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDevice.swift; sourceTree = "<group>"; };
 		719E6601248481740040ABD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		719E6603248481ED0040ABD9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		719E6605248485D50040ABD9 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
@@ -219,11 +225,14 @@
 			children = (
 				710DB8D62482E6260064B088 /* KeychainError.swift */,
 				71FD3D87247F246B001CC553 /* Device.swift */,
+				719C3F582496C7E700437D90 /* Computer.swift */,
 				713F1A4F248194CE00E24C40 /* SearchModel.swift */,
 				719E6605248485D50040ABD9 /* Credentials.swift */,
 				71F70589248DC03B0089387E /* WipeRequest.swift */,
 				71F7058B248DC07A0089387E /* DeviceUpdateRequest.swift */,
 				71F7058D248DC0D30089387E /* JSResponse.swift */,
+				719C3F5A2496CE9700437D90 /* MobileDevice.swift */,
+				719C3F5C2496D68F00437D90 /* SearchedDevice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -383,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				713F1A50248194CE00E24C40 /* SearchModel.swift in Sources */,
+				719C3F592496C7E700437D90 /* Computer.swift in Sources */,
 				710DB8D72482E6260064B088 /* KeychainError.swift in Sources */,
 				710DB8DD248351D40064B088 /* CodeScannerView.swift in Sources */,
 				71FD3D83247F2461001CC553 /* URLSessionExtension.swift in Sources */,
@@ -391,6 +401,7 @@
 				711BED03248F1DEE00D15CC9 /* DataTaskError.swift in Sources */,
 				7186D4A02492E804006249E9 /* ScannerErrorExtension.swift in Sources */,
 				71FD3D50247F241C001CC553 /* AppDelegate.swift in Sources */,
+				719C3F5D2496D68F00437D90 /* SearchedDevice.swift in Sources */,
 				71F7058E248DC0D30089387E /* JSResponse.swift in Sources */,
 				71FD3D88247F246B001CC553 /* Device.swift in Sources */,
 				71E1C279247F6E6A00113824 /* OptionSheet.swift in Sources */,
@@ -404,6 +415,7 @@
 				71FD3D93247F46A7001CC553 /* ContentViewModel.swift in Sources */,
 				71FD3D8E247F4155001CC553 /* DeviceListView.swift in Sources */,
 				71FD3D54247F241C001CC553 /* ContentView.swift in Sources */,
+				719C3F5B2496CE9700437D90 /* MobileDevice.swift in Sources */,
 				71F7058A248DC03B0089387E /* WipeRequest.swift in Sources */,
 				71E1C277247F6BFE00113824 /* InfoSheetView.swift in Sources */,
 			);

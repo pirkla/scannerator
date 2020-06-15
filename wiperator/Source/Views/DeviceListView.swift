@@ -25,7 +25,7 @@ struct DeviceListView: View {
 
 struct DeviceListView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceListView(deviceArray: [Device](), credentials: Credentials(Username: "", Password: "", Server: URLComponents()), updateFunc: nil)
+        DeviceListView(deviceArray: [Device](), credentials: Credentials(username: "", password: "", server: URLComponents()), updateFunc: nil)
     }
 }
 
@@ -64,6 +64,6 @@ struct DeviceRow: View {
 
 struct DeviceRow_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceRow(device: Device(), credentials: Credentials(Username: "", Password: "", Server: URLComponents()))
+        DeviceRow(device: Device(), credentials: Credentials(username: "", password: "", server: URLComponents()))
     }
 }

@@ -22,7 +22,7 @@ class LoginViewModel: ObservableObject {
     
     var credentials: Credentials {
         get {
-            return Credentials(Username: networkID, Password: apiKey, Server: baseURL)
+            return Credentials(username: networkID, password: apiKey, server: baseURL)
         }
     }
     
@@ -58,7 +58,8 @@ class LoginViewModel: ObservableObject {
     }
     
     public func deviceSearch(completion: @escaping (Result<[Device], Error>) -> Void)-> URLSessionDataTask?{
-        return Device.allDevicesRequest(baseURL: baseURL, credentials: credentials.BasicCreds, session: URLSession.shared) {(result) in
+        return Device.allDevicesRequest(baseURL: baseURL, credentials: credentials.basicCreds, session: URLSession.shared) {
+            (result) in
             switch result {
             case .success(let allDevices):
                 completion(.success(allDevices.devices))
@@ -68,37 +69,123 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
-    
-    public func login(completion: @escaping (Credentials,[Device])->Void) {
-        loggingIn = true
-        deviceSearch() {
-            [weak self]
-            result in
-            guard let self = self else {
-                return
-            }
-            switch result {
-            case .success(let devices):
-                completion(self.credentials,devices)
-                DispatchQueue.main.async {
-//                    self.presentationMode.wrappedValue.dismiss()
-                    self.loggingIn = false
-                    self.serverError = "itworked?"
-                }
-                do {
-                    try self.syncronizeCredentials()
-                }
-                catch {
-                    print("Failed to save credentials with error: \(error)")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.serverError = "Failed to log in\n \(error.localizedDescription)"
+    func mobileDeviceSearch(completion: @escaping (Result<[MobileDevice], Error>)-> Void)-> URLSessionTask? {
+            return MobileDevice.mobileSearchRequest(baseURL: baseURL, match: "*", credentials: credentials.basicCreds, session: URLSession.shared) {
+                (result) in
+                switch result {
+                case .success(let deviceList):
+                    completion(.success(deviceList.mobileDevices))
+                    
+                case .failure(let error):
+                    completion(.failure(error))
                     print(error)
-                    self.loggingIn = false
                 }
             }
         }
+    
+    func computerSearch(completion: @escaping (Result<[Computer], Error>)-> Void)-> URLSessionTask? {
+        return Computer.computerSearchRequest(baseURL: baseURL, match: "*", credentials: credentials.basicCreds, session: URLSession.shared) {
+            (result) in
+            switch result {
+            case .success(let computerList):
+                completion(.success(computerList.computers))
+                
+            case .failure(let error):
+                completion(.failure(error))
+                print(error)
+            }
+        }
+    }
+    
+    public func login(completion: @escaping (Credentials,[SearchedDevice])->Void) {
+        loggingIn = true
+        DispatchQueue.global().async{
+            let group = DispatchGroup()
+            var deviceList = Array<SearchedDevice>()
+            var allowMobile = false
+            var allowComputer = false
+            var lastError: Error?
+            group.enter()
+            self.computerSearch() {
+                [weak self]
+                result in
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .success(let computerList):
+                    deviceList.append(contentsOf: computerList)
+                    allowMobile = true
+                case .failure(let error):
+                    lastError = error
+                    print(error)
+                }
+                group.leave()
+            }
+            
+            group.enter()
+            self.mobileDeviceSearch() {
+                [weak self]
+                result in
+                guard let self = self else {
+                    return
+                }
+                switch result {
+                case .success(let mobileDeviceList):
+                    deviceList.append(contentsOf: mobileDeviceList)
+                    allowMobile = true
+                case .failure(let error):
+                    lastError = error
+                    print(error)
+                }
+                group.leave()
+            }
+            group.wait()
+            
+            if !allowMobile && !allowComputer {
+                DispatchQueue.main.async {
+                    if let myError = lastError {
+                        self.serverError = "Failed to log in\n \(myError.localizedDescription)"
+                    }
+                    self.loggingIn = false
+                    return
+                }
+            }
+            
+            completion(self.credentials,deviceList)
+            
+            
+        }
+        
+        
+//        deviceSearch() {
+//            [weak self]
+//            result in
+//            guard let self = self else {
+//                return
+//            }
+//            switch result {
+//            case .success(let devices):
+//                completion(self.credentials,devices)
+//                DispatchQueue.main.async {
+////                    self.presentationMode.wrappedValue.dismiss()
+//                    self.loggingIn = false
+//                    self.serverError = "itworked?"
+//                }
+//                do {
+//                    try self.syncronizeCredentials()
+//                }
+//                catch {
+//                    print("Failed to save credentials with error: \(error)")
+//                }
+//            case .failure(let error):
+//                DispatchQueue.main.async {
+//                    self.serverError = "Failed to log in\n \(error.localizedDescription)"
+//                    print(error)
+//                    self.loggingIn = false
+//                }
+//            }
+//        }
     }
     
     

@@ -37,7 +37,7 @@ struct DeviceDetailView: View {
             }.sheet(isPresented: self.$showModal) {
                 OptionSheet(title: "Wiping: \(self.device.name ?? "Unknown")", description: "Are you sure?") { choice in
                     if choice {
-                    _ = WipeRequest(udid: self.device.UDID, clearActivationLock: "true").submitWipeRequest(baseURL: self.credentials.Server, credentials: self.credentials.BasicCreds, session: URLSession.shared) {
+                    _ = WipeRequest(udid: self.device.UDID, clearActivationLock: "true").submitWipeRequest(baseURL: self.credentials.server, credentials: self.credentials.basicCreds, session: URLSession.shared) {
                         _ in
                     }
                     }
@@ -90,7 +90,7 @@ struct DeviceDetailView: View {
       }
     }
     func updateDevice() {
-        Device.deviceRequest(baseURL: credentials.Server, udid: device.UDID ?? "", credentials: credentials.BasicCreds, session: URLSession.shared){
+        Device.deviceRequest(baseURL: credentials.server, udid: device.UDID ?? "", credentials: credentials.basicCreds, session: URLSession.shared){
             result in
             switch result {
             case .success(let deviceResponse):
@@ -104,6 +104,6 @@ struct DeviceDetailView: View {
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetailView(device: Device(), credentials:Credentials(Username: "", Password: "", Server: URLComponents()), updateFunc: nil)
+        DeviceDetailView(device: Device(), credentials:Credentials(username: "", password: "", server: URLComponents()), updateFunc: nil)
     }
 }

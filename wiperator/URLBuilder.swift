@@ -18,9 +18,6 @@ class URLBuilder {
      
      - parameters:
         - baseURL: The base url of the instance. Ex: manage.zuludesk.com
-        - endpoint: The endpoint to be used.
-        - identifierType: The type of identifier to be used.
-        - identifier: The identifier to be used.
      */
     static func BuildURL(baseURL: String) -> URLComponents
     {
@@ -29,5 +26,31 @@ class URLBuilder {
         components.scheme = "https"
         components.host = myURL
         return components
+    }
+    
+    /**
+     Create a url from elements for use with Jamf Pro
+     
+     - returns:
+     A concatenated url
+     
+     - parameters:
+        - baseURL: The base url of the instance. Ex: url.jamfcloud.com
+     */
+    static func BuildJamfURL(baseURL: String) -> URL?
+    {
+        var myURL = baseURL.replacingOccurrences(of: "https:", with: "").replacingOccurrences(of: "http:", with: "").replacingOccurrences(of: "/", with: "")
+        var port: Int?
+        if let range = myURL.range(of: ":") {
+            let portString = String(myURL[range.upperBound...])
+            myURL.removeSubrange(range.lowerBound..<myURL.endIndex)
+            port = Int(portString)
+        }
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = myURL
+        components.port = port
+
+        return components.url
     }
 }

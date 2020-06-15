@@ -13,8 +13,8 @@ struct LoginView: View {
 //    @State private var loggingIn = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var loginViewModel = LoginViewModel()
-    var completion: (Credentials,[Device]) -> Void
-    init(completion: @escaping (Credentials,[Device])->Void) {
+    var completion: (Credentials,[SearchedDevice]) -> Void
+    init(completion: @escaping (Credentials,[SearchedDevice])->Void) {
         self.completion = completion
     }
     

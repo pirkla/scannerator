@@ -13,7 +13,7 @@ import SwiftUI
 
 class ContentViewModel: ObservableObject{
 
-    var credentials: Credentials = Credentials(Username: "", Password: "", Server: URLComponents())
+    var credentials: Credentials = Credentials(username: "", password: "", server: URLComponents())
     var searchTask: URLSessionDataTask?
     @Published var showSheet = true
     @Published var lookupText: String = "" {
@@ -21,7 +21,7 @@ class ContentViewModel: ObservableObject{
             searchHandler(searchValue: newValue)
         }
     }
-    @Published var deviceArray = Array<Device>()
+    @Published var deviceArray = Array<SearchedDevice>()
     
     var searchIndex = 0 {
         didSet {
@@ -52,7 +52,7 @@ class ContentViewModel: ObservableObject{
     
     private func deviceSearch(searchType: String, search: String, completion: @escaping (Result<[Device], Error>) -> Void)-> URLSessionDataTask?{
         let queryArray = [URLQueryItem(name: searchType,value: search)]
-        return Device.allDevicesRequest(baseURL: self.credentials.Server, filters: queryArray, credentials: self.credentials.BasicCreds, session: URLSession.shared) {
+        return Device.allDevicesRequest(baseURL: self.credentials.server, filters: queryArray, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             (result) in
             switch result {
             case .success(let allDevices):
@@ -65,7 +65,7 @@ class ContentViewModel: ObservableObject{
     }
     
     public func updateDevice(udid: String, notes: String, completion: @escaping (Result<JSResponse,Error>)->Void) {
-        _ = DeviceUpdateRequest(udid: udid, notes: notes).submitDeviceUpdate(baseUrl: credentials.Server, credentials: credentials.BasicCreds, session: URLSession.shared){
+        _ = DeviceUpdateRequest(udid: udid, notes: notes).submitDeviceUpdate(baseUrl: credentials.server, credentials: credentials.basicCreds, session: URLSession.shared){
             (result) in
             switch result {
             case .success(let response):
