@@ -8,7 +8,16 @@
 
 import Foundation
 
-struct Computer: Codable, Identifiable {
+struct ComputerParent: Codable {
+    var computer: Computer
+}
+struct Computer: Codable {
+    var general: ComputerGeneral
+    var extensionAttributes: [ExtensionAttribute]
+}
+
+
+struct ComputerGeneral: Codable {
     var id : Int
     var name: String?
     var udid: String?
@@ -18,47 +27,57 @@ struct Computer: Codable, Identifiable {
     var assetTag: String?
     var barCode1: String?
     var barCode2: String?
-    var username: String?
-    var realName: String?
-    var email: String?
-    var emailAddress: String?
-    var room: String?
-    var position: String?
-    var building: String?
-    var buildingName: String?
-    var department: String?
-    var departmentName: String?
+//    var username: String?
+//    var realName: String?
+//    var email: String?
+//    var emailAddress: String?
+//    var room: String?
+//    var position: String?
+//    var building: String?
+//    var buildingName: String?
+//    var department: String?
+//    var departmentName: String?
 }
 
 struct ComputerSearch: Codable {
     var computers: [SearchedDevice]
 }
 
-extension Computer {
-    //todo: this could be made into a more general datatask extension instead
-    static func computerSearchRequest(request: URLRequest, session: URLSession, completion: @escaping (Result<ComputerSearch,Error>)-> Void)-> URLSessionDataTask? {
-        let dataTask = session.dataTask(request: request) {
-            (result) in
+extension Computer: Device {
+    
+    var id: Int { return self.general.id }
+    
+    var name: String? { return self.general.name }
+    
+    var serialNumber: String? { return self.general.serialNumber }
+    
+    var assetTag: String? { return self.general.assetTag }
+    
+    var isCheckedIn: Bool { return true }
+    
+    func deviceRequest(baseURL: URLComponents,id: String,credentials: String, session: URLSession, completion: @escaping (Result<Device,Error>)-> Void) {
+        var urlComponents = baseURL
+        urlComponents.path="/api/devices/\(id)"
+        guard let myUrl = urlComponents.url else {
+            completion(.failure(NSError()))
+            return
+        }
+        let myRequest = URLRequest(url: myUrl,basicCredentials:credentials, method: HTTPMethod.get,accept: ContentType.json)
+        _ = session.fetchDecodedResponse(request: myRequest) {
+            (result: Result<ComputerParent, Error>) in
             switch result {
             case .success(let data):
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let responseObject = try decoder.decode(ComputerSearch.self, from: data)
-                    completion(.success(responseObject))
-                }
-                catch {
-                    print(error)
-                    completion(.failure(error))
-                }
+                completion(.success(data.computer))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
-        dataTask.resume()
-        return dataTask
+        return
     }
     
+}
+
+extension Computer {
     static func computerSearchRequest(baseURL: URLComponents,match: String,credentials: String, session: URLSession, completion: @escaping (Result<ComputerSearch,Error>)-> Void)-> URLSessionDataTask? {
         var urlComponents = baseURL
         urlComponents.path="/JSSResource/computers/match/"+match
@@ -67,9 +86,14 @@ extension Computer {
             return nil
         }
         let myRequest = URLRequest(url: myUrl,basicCredentials:credentials, method: HTTPMethod.get,accept: ContentType.json)
-        let dataTask = computerSearchRequest(request: myRequest, session: session){
-            (result) in
-            completion(result)
+        let dataTask = session.fetchDecodedResponse(request: myRequest) {
+            (result: Result<ComputerSearch, Error>) in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
         return dataTask
     }
