@@ -92,11 +92,21 @@ struct DeviceDetailView: View {
         Spacer()
       }
       .onAppear {
-
+        self.updateDevice()
         }
     }
-//    func updateDevice() {
-//        Device.deviceRequest(baseURL: credentials.server, udid: device.UDID ?? "", credentials: credentials.basicCreds, session: URLSession.shared){
+    func updateDevice() {
+        deviceType.deviceRequest.self(baseURL: self.credentials.server, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
+            result in
+            switch result {
+            case .success(let deviceResponse):
+                self.device = deviceResponse
+                print(self.device)
+            case .failure(let error):
+                print(error)
+        }
+        }
+//        deviceType.deviceRequest(baseURL: credentials.server, id: device.id ?? "", credentials: credentials.basicCreds, session: URLSession.shared){
 //            result in
 //            switch result {
 //            case .success(let deviceResponse):
@@ -105,7 +115,7 @@ struct DeviceDetailView: View {
 //                print(error)
 //            }
 //        }
-//    }
+    }
 }
 
 //struct DeviceDetailView_Previews: PreviewProvider {

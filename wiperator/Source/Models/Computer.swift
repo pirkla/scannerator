@@ -55,9 +55,9 @@ extension Computer: Device {
     
     var isCheckedIn: Bool { return true }
     
-    func deviceRequest(baseURL: URLComponents,id: String,credentials: String, session: URLSession, completion: @escaping (Result<Device,Error>)-> Void) {
+    static func deviceRequest(baseURL: URLComponents,id: Int,credentials: String, session: URLSession, completion: @escaping (Result<Device,Error>)-> Void) {
         var urlComponents = baseURL
-        urlComponents.path="/api/devices/\(id)"
+        urlComponents.path="/JSSResource/computers/id/\(id)"
         guard let myUrl = urlComponents.url else {
             completion(.failure(NSError()))
             return

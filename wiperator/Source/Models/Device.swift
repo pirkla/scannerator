@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Device {
-    func deviceRequest(baseURL: URLComponents,id: String,credentials: String, session: URLSession, completion: @escaping (Result<Device,Error>)-> Void)
+    static func deviceRequest(baseURL: URLComponents,id: Int,credentials: String, session: URLSession, completion: @escaping (Result<Device,Error>)-> Void)
     var id: Int {get }
     var name: String? {get }
     var serialNumber: String? {get }
