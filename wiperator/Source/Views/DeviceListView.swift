@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DeviceListView: View {
-    var deviceArray: [Device]
+    var deviceArray: [SearchedDevice]
     var credentials: Credentials
     let updateFunc: ((String, String, @escaping (Result<JSResponse, Error>) -> Void) -> ())?
 
@@ -25,19 +25,19 @@ struct DeviceListView: View {
 
 struct DeviceListView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceListView(deviceArray: [Device](), credentials: Credentials(username: "", password: "", server: URLComponents()), updateFunc: nil)
+        DeviceListView(deviceArray: [SearchedDevice](), credentials: Credentials(username: "", password: "", server: URLComponents()), updateFunc: nil)
     }
 }
 
 
 struct DeviceRow: View {
-    var device: Device
+    var device: SearchedDevice
     var credentials: Credentials
     
     var body: some View {
         HStack {
-            DeviceImage(device.isiOS)
-            CheckedInImage(device.isCheckedIn)
+//            DeviceImage(device.isiOS)
+//            CheckedInImage(device.isCheckedIn)
             Text(device.name ?? "")
             Text(device.assetTag ?? "")
         }
@@ -62,8 +62,8 @@ struct DeviceRow: View {
 
 }
 
-struct DeviceRow_Previews: PreviewProvider {
-    static var previews: some View {
-        DeviceRow(device: Device(), credentials: Credentials(username: "", password: "", server: URLComponents()))
-    }
-}
+//struct DeviceRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DeviceRow(device: SearchedDevice(), credentials: Credentials(username: "", password: "", server: URLComponents()))
+//    }
+//}

@@ -28,19 +28,7 @@ struct MobileDevice: Codable, Identifiable {
 }
 
 struct MobileDeviceSearch: Codable {
-    var mobileDevices: [MobileDevice]
-}
-
-extension MobileDevice: SearchedDevice {
-    var osValue: OSValue {
-        return .mobileDevice
-    }
-    
-    var altMacAddress: String? { return nil }
-    var assetTag: String? { return nil }
-    var barCode1: String? { return nil }
-    var barCode2: String? { return nil }
-    
+    var mobileDevices: [SearchedDevice]
 }
 
 extension MobileDevice {

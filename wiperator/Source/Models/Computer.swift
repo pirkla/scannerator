@@ -30,16 +30,8 @@ struct Computer: Codable, Identifiable {
     var departmentName: String?
 }
 
-extension Computer: SearchedDevice {
-    var osValue: OSValue {
-        return .computer
-    }
-    
-    
-}
-
 struct ComputerSearch: Codable {
-    var computers: [Computer]
+    var computers: [SearchedDevice]
 }
 
 extension Computer {

@@ -11,7 +11,7 @@ import SwiftUI
 struct DeviceDetailView: View {
 
     @State var showModal = false
-    @State var device: Device
+    @State var device: SearchedDevice
     let credentials: Credentials
     
     let updateFunc: ((String, String, @escaping (Result<JSResponse, Error>) -> Void) -> ())?
@@ -36,74 +36,74 @@ struct DeviceDetailView: View {
                 .background(Color.init("TextBackground"))
             }.sheet(isPresented: self.$showModal) {
                 OptionSheet(title: "Wiping: \(self.device.name ?? "Unknown")", description: "Are you sure?") { choice in
-                    if choice {
-                    _ = WipeRequest(udid: self.device.UDID, clearActivationLock: "true").submitWipeRequest(baseURL: self.credentials.server, credentials: self.credentials.basicCreds, session: URLSession.shared) {
-                        _ in
-                    }
-                    }
+//                    if choice {
+//                    _ = WipeRequest(udid: self.device.UDID, clearActivationLock: "true").submitWipeRequest(baseURL: self.credentials.server, credentials: self.credentials.basicCreds, session: URLSession.shared) {
+//                        _ in
+//                    }
+//                    }
                 }
             }
             .cornerRadius(10)
 
-            
-            if !device.isCheckedIn {
-            Button(action: {
-                if let updateFunc = self.updateFunc {
-                    updateFunc(self.device.UDID ?? "","Checked In") {_ in
-                        self.updateDevice()
-                    }
-
-                }
-            }) {
-                HStack {
-                    Image(systemName: "rectangle.badge.checkmark")
-                        .padding([.top, .leading, .bottom], 10.0)
-                    Text("Check In")
-                        .padding([.top, .bottom, .trailing], 10.0)
-                }
-                .background(Color.init("TextBackground"))
-            }
-            .cornerRadius(10)
-            }
-            else {
-                Button(action: {
-                    if let updateFunc = self.updateFunc {
-                        updateFunc(self.device.UDID ?? "","Checked Out") {_ in
-                            
-                            self.updateDevice()
-                        }
-                    }
-                }) {
-                    HStack {
-                        Image(systemName: "rectangle.badge.xmark")
-                            .padding([.top, .leading, .bottom], 10.0)
-                        Text("Check Out")
-                            .padding([.top, .bottom, .trailing], 10.0)
-                    }
-                        .background(Color.init("TextBackground"))
-                }
-                    .cornerRadius(10)
-                
-            }
+//
+//            if !device.isCheckedIn {
+//            Button(action: {
+//                if let updateFunc = self.updateFunc {
+//                    updateFunc(self.device.UDID ?? "","Checked In") {_ in
+//                        self.updateDevice()
+//                    }
+//
+//                }
+//            }) {
+//                HStack {
+//                    Image(systemName: "rectangle.badge.checkmark")
+//                        .padding([.top, .leading, .bottom], 10.0)
+//                    Text("Check In")
+//                        .padding([.top, .bottom, .trailing], 10.0)
+//                }
+//                .background(Color.init("TextBackground"))
+//            }
+//            .cornerRadius(10)
+//            }
+//            else {
+//                Button(action: {
+//                    if let updateFunc = self.updateFunc {
+//                        updateFunc(self.device.UDID ?? "","Checked Out") {_ in
+//
+//                            self.updateDevice()
+//                        }
+//                    }
+//                }) {
+//                    HStack {
+//                        Image(systemName: "rectangle.badge.xmark")
+//                            .padding([.top, .leading, .bottom], 10.0)
+//                        Text("Check Out")
+//                            .padding([.top, .bottom, .trailing], 10.0)
+//                    }
+//                        .background(Color.init("TextBackground"))
+//                }
+//                    .cornerRadius(10)
+//
+//            }
         }
         Spacer()
       }
     }
-    func updateDevice() {
-        Device.deviceRequest(baseURL: credentials.server, udid: device.UDID ?? "", credentials: credentials.basicCreds, session: URLSession.shared){
-            result in
-            switch result {
-            case .success(let deviceResponse):
-                self.device = deviceResponse.device
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+//    func updateDevice() {
+//        Device.deviceRequest(baseURL: credentials.server, udid: device.UDID ?? "", credentials: credentials.basicCreds, session: URLSession.shared){
+//            result in
+//            switch result {
+//            case .success(let deviceResponse):
+//                self.device = deviceResponse.device
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
 }
 
-struct DeviceDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DeviceDetailView(device: Device(), credentials:Credentials(username: "", password: "", server: URLComponents()), updateFunc: nil)
-    }
-}
+//struct DeviceDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DeviceDetailView(device: Device(), credentials:Credentials(username: "", password: "", server: URLComponents()), updateFunc: nil)
+//    }
+//}

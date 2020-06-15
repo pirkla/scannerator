@@ -29,7 +29,7 @@ class LoginViewModel: ObservableObject {
     @Published var saveCredentials = true
 
     func loadCredentials() {
-        enteredURL = UserDefaults.standard.string(forKey: "jamfSchoolServer") ?? enteredURL
+        enteredURL = UserDefaults.standard.string(forKey: "jamfProServer") ?? enteredURL
         do {
             let credentials = try Credentials.loadCredentials(server: enteredURL)
             networkID = credentials.networkID
@@ -42,7 +42,7 @@ class LoginViewModel: ObservableObject {
     
     func syncronizeCredentials() throws{
         if saveCredentials {
-            UserDefaults.standard.set(enteredURL, forKey: "jamfSchoolServer")
+            UserDefaults.standard.set(enteredURL, forKey: "jamfProServer")
             do {
                 try Credentials.saveCredentials(networkID: networkID, apiKey: apiKey, server: enteredURL)
                 }
@@ -69,7 +69,7 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
-    func mobileDeviceSearch(completion: @escaping (Result<[MobileDevice], Error>)-> Void)-> URLSessionTask? {
+    func mobileDeviceSearch(completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionTask? {
             return MobileDevice.mobileSearchRequest(baseURL: baseURL, match: "*", credentials: credentials.basicCreds, session: URLSession.shared) {
                 (result) in
                 switch result {
@@ -83,7 +83,7 @@ class LoginViewModel: ObservableObject {
             }
         }
     
-    func computerSearch(completion: @escaping (Result<[Computer], Error>)-> Void)-> URLSessionTask? {
+    func computerSearch(completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionTask? {
         return Computer.computerSearchRequest(baseURL: baseURL, match: "*", credentials: credentials.basicCreds, session: URLSession.shared) {
             (result) in
             switch result {
@@ -107,11 +107,7 @@ class LoginViewModel: ObservableObject {
             var lastError: Error?
             group.enter()
             self.computerSearch() {
-                [weak self]
                 result in
-                guard let self = self else {
-                    return
-                }
                 switch result {
                 case .success(let computerList):
                     deviceList.append(contentsOf: computerList)
@@ -125,15 +121,11 @@ class LoginViewModel: ObservableObject {
             
             group.enter()
             self.mobileDeviceSearch() {
-                [weak self]
                 result in
-                guard let self = self else {
-                    return
-                }
                 switch result {
                 case .success(let mobileDeviceList):
                     deviceList.append(contentsOf: mobileDeviceList)
-                    allowMobile = true
+                    allowComputer = true
                 case .failure(let error):
                     lastError = error
                     print(error)
@@ -148,44 +140,19 @@ class LoginViewModel: ObservableObject {
                         self.serverError = "Failed to log in\n \(myError.localizedDescription)"
                     }
                     self.loggingIn = false
-                    return
                 }
+                return
+
             }
-            
+            do {
+                try self.syncronizeCredentials()
+            }
+            catch {
+                print("Failed to save credentials with error: \(error)")
+            }
             completion(self.credentials,deviceList)
             
-            
         }
-        
-        
-//        deviceSearch() {
-//            [weak self]
-//            result in
-//            guard let self = self else {
-//                return
-//            }
-//            switch result {
-//            case .success(let devices):
-//                completion(self.credentials,devices)
-//                DispatchQueue.main.async {
-////                    self.presentationMode.wrappedValue.dismiss()
-//                    self.loggingIn = false
-//                    self.serverError = "itworked?"
-//                }
-//                do {
-//                    try self.syncronizeCredentials()
-//                }
-//                catch {
-//                    print("Failed to save credentials with error: \(error)")
-//                }
-//            case .failure(let error):
-//                DispatchQueue.main.async {
-//                    self.serverError = "Failed to log in\n \(error.localizedDescription)"
-//                    print(error)
-//                    self.loggingIn = false
-//                }
-//            }
-//        }
     }
     
     
@@ -195,11 +162,11 @@ class LoginViewModel: ObservableObject {
                 return false
             }
             self.enteredURL = myServerURL
-            guard let myNetworkID = managedConf["networkID"] as? String else {
+            guard let myNetworkID = managedConf["username"] as? String else {
                 return false
             }
             self.networkID = myNetworkID
-            guard let myApiKey = managedConf["apiKey"] as? String else {
+            guard let myApiKey = managedConf["password"] as? String else {
                 return false
             }
             self.apiKey = myApiKey
@@ -210,11 +177,11 @@ class LoginViewModel: ObservableObject {
             return false
         }
         self.enteredURL = myServerURL
-        guard let myNetworkID = Bundle.main.object(forInfoDictionaryKey: "networkID") as? String else {
+        guard let myNetworkID = Bundle.main.object(forInfoDictionaryKey: "username") as? String else {
             return false
         }
         self.networkID = myNetworkID
-        guard let myApiKey = Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String else {
+        guard let myApiKey = Bundle.main.object(forInfoDictionaryKey: "password") as? String else {
             return false
         }
         self.apiKey = myApiKey

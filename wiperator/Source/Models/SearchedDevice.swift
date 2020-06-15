@@ -8,31 +8,41 @@
 
 import Foundation
 
-protocol SearchedDevice: Codable {
-    var id : Int {get }
-    var name: String? {get }
-    var udid: String? {get }
-    var serialNumber: String? {get }
-    var macAddress: String? {get }
-    var altMacAddress: String? {get }
-    var assetTag: String? {get }
-    var barCode1: String? {get }
-    var barCode2: String? {get }
-    var username: String? {get }
-    var realName: String? {get }
-    var email: String? {get }
-    var emailAddress: String? {get }
-    var room: String? {get }
-    var position: String? {get }
-    var building: String? {get }
-    var buildingName: String? {get }
-    var department: String? {get }
-    var departmentName: String? {get }
-    var osValue: OSValue {get }
+
+
+struct SearchedDevice: Codable, Identifiable {
+    var id : Int
+    var name: String?
+    var udid: String?
+    var serialNumber: String?
+    var macAddress: String?
+    var altMacAddress: String?
+    var assetTag: String?
+    var barCode1: String?
+    var barCode2: String?
+    var username: String?
+    var realName: String?
+    var email: String?
+    var emailAddress: String?
+    var room: String?
+    var position: String?
+    var building: String?
+    var buildingName: String?
+    var department: String?
+    var departmentName: String?
+}
+// todo: UGH this is a hack and liable to fail one day with an update to the api
+extension SearchedDevice {
+    var osValue: OSValue {
+        get {
+            return barCode2 == nil ? .mobileDevice : .computer
+        }
+    }
 }
 
 enum OSValue {
     case computer
     case mobileDevice
 }
+//
 

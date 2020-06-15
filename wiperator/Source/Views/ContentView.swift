@@ -21,20 +21,6 @@ struct ContentView: View {
                 }
             }
             .padding(.bottom, 20.0)
-            HStack() {
-                Picker(selection: $contentViewModel.searchIndex, label: EmptyView()) {
-                ForEach(0 ..< contentViewModel.searchModelArray.count) {
-                    index in
-                    HStack() {
-                    Text(self.contentViewModel.searchModelArray[index].title)
-                        .tag(index)
-                    }
-                    }
-                }
-            }
-            .padding(.bottom, 50.0)
-            .frame(width: 300.0, height: 80.0)
-            .zIndex(-2)
             
             
             HStack() {
