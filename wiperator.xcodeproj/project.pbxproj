@@ -16,6 +16,7 @@
 		719C3F592496C7E700437D90 /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F582496C7E700437D90 /* Computer.swift */; };
 		719C3F5B2496CE9700437D90 /* MobileDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F5A2496CE9700437D90 /* MobileDevice.swift */; };
 		719C3F5D2496D68F00437D90 /* SearchedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F5C2496D68F00437D90 /* SearchedDevice.swift */; };
+		719C3F5F2497247000437D90 /* ExtensionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F5E2497247000437D90 /* ExtensionAttribute.swift */; };
 		719E6602248481740040ABD9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6601248481740040ABD9 /* LoginView.swift */; };
 		719E6604248481ED0040ABD9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6603248481ED0040ABD9 /* LoginViewModel.swift */; };
 		719E6606248485D50040ABD9 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6605248485D50040ABD9 /* Credentials.swift */; };
@@ -68,6 +69,7 @@
 		719C3F582496C7E700437D90 /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
 		719C3F5A2496CE9700437D90 /* MobileDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileDevice.swift; sourceTree = "<group>"; };
 		719C3F5C2496D68F00437D90 /* SearchedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDevice.swift; sourceTree = "<group>"; };
+		719C3F5E2497247000437D90 /* ExtensionAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAttribute.swift; sourceTree = "<group>"; };
 		719E6601248481740040ABD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		719E6603248481ED0040ABD9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		719E6605248485D50040ABD9 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
@@ -224,15 +226,16 @@
 			isa = PBXGroup;
 			children = (
 				710DB8D62482E6260064B088 /* KeychainError.swift */,
-				71FD3D87247F246B001CC553 /* Device.swift */,
-				719C3F582496C7E700437D90 /* Computer.swift */,
 				713F1A4F248194CE00E24C40 /* SearchModel.swift */,
 				719E6605248485D50040ABD9 /* Credentials.swift */,
 				71F70589248DC03B0089387E /* WipeRequest.swift */,
 				71F7058B248DC07A0089387E /* DeviceUpdateRequest.swift */,
 				71F7058D248DC0D30089387E /* JSResponse.swift */,
+				71FD3D87247F246B001CC553 /* Device.swift */,
+				719C3F582496C7E700437D90 /* Computer.swift */,
 				719C3F5A2496CE9700437D90 /* MobileDevice.swift */,
 				719C3F5C2496D68F00437D90 /* SearchedDevice.swift */,
+				719C3F5E2497247000437D90 /* ExtensionAttribute.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				719C3F592496C7E700437D90 /* Computer.swift in Sources */,
 				710DB8D72482E6260064B088 /* KeychainError.swift in Sources */,
 				710DB8DD248351D40064B088 /* CodeScannerView.swift in Sources */,
+				719C3F5F2497247000437D90 /* ExtensionAttribute.swift in Sources */,
 				71FD3D83247F2461001CC553 /* URLSessionExtension.swift in Sources */,
 				71F7058C248DC07A0089387E /* DeviceUpdateRequest.swift in Sources */,
 				71F70592248DEE760089387E /* DeviceDetailView.swift in Sources */,

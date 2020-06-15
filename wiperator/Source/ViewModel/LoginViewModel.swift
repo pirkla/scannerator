@@ -57,18 +57,6 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    public func deviceSearch(completion: @escaping (Result<[Device], Error>) -> Void)-> URLSessionDataTask?{
-        return Device.allDevicesRequest(baseURL: baseURL, credentials: credentials.basicCreds, session: URLSession.shared) {
-            (result) in
-            switch result {
-            case .success(let allDevices):
-                completion(.success(allDevices.devices))
-            case .failure(let error):
-                completion(.failure(error))
-                print(error)
-            }
-        }
-    }
     func mobileDeviceSearch(completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionTask? {
             return MobileDevice.mobileSearchRequest(baseURL: baseURL, match: "*", credentials: credentials.basicCreds, session: URLSession.shared) {
                 (result) in

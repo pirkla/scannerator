@@ -16,9 +16,10 @@ class ContentViewModel: ObservableObject{
     var credentials: Credentials = Credentials(username: "", password: "", server: URLComponents())
     var searchTasks: [URLSessionDataTask?] = [URLSessionDataTask?]()
     @Published var showSheet = true
+    //feature: make wildcard optional
     @Published var lookupText: String = "" {
         willSet(newValue){
-            searchHandler(searchValue: newValue + "*")
+            searchHandler(searchValue: "*" + newValue + "*")
         }
     }
     @Published var deviceArray = Array<SearchedDevice>()
@@ -39,22 +40,24 @@ class ContentViewModel: ObservableObject{
             activeSheet = .errorView
         }
     }
-    
-    private func deviceSearch(searchType: String, search: String, completion: @escaping (Result<[Device], Error>) -> Void)-> URLSessionDataTask?{
-        let queryArray = [URLQueryItem(name: searchType,value: search)]
-        return Device.allDevicesRequest(baseURL: self.credentials.server, filters: queryArray, credentials: self.credentials.basicCreds, session: URLSession.shared) {
-            (result) in
-            switch result {
-            case .success(let allDevices):
-                completion(.success(allDevices.devices))
-            case .failure(let error):
-                completion(.failure(error))
-                print(error)
-            }
-        }
-    }
-    func mobileDeviceSearch(completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionDataTask? {
-        return MobileDevice.mobileSearchRequest(baseURL: credentials.server, match: lookupText, credentials: credentials.basicCreds, session: URLSession.shared) {
+//    private func deviceSearch(){
+//        
+//    }
+//    private func deviceSearch(searchType: String, search: String, completion: @escaping (Result<[Device], Error>) -> Void)-> URLSessionDataTask?{
+//        let queryArray = [URLQueryItem(name: searchType,value: search)]
+//        return Device.allDevicesRequest(baseURL: self.credentials.server, filters: queryArray, credentials: self.credentials.basicCreds, session: URLSession.shared) {
+//            (result) in
+//            switch result {
+//            case .success(let allDevices):
+//                completion(.success(allDevices.devices))
+//            case .failure(let error):
+//                completion(.failure(error))
+//                print(error)
+//            }
+//        }
+//    }
+    func mobileDeviceSearch(searchText:String, completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionDataTask? {
+        return MobileDevice.mobileSearchRequest(baseURL: credentials.server, match: searchText, credentials: credentials.basicCreds, session: URLSession.shared) {
             (result) in
             switch result {
             case .success(let deviceList):
@@ -67,8 +70,8 @@ class ContentViewModel: ObservableObject{
         }
     }
     
-    func computerSearch(completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionDataTask? {
-        return Computer.computerSearchRequest(baseURL: credentials.server, match: lookupText, credentials: credentials.basicCreds, session: URLSession.shared) {
+    func computerSearch(searchText: String, completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionDataTask? {
+        return Computer.computerSearchRequest(baseURL: credentials.server, match: searchText, credentials: credentials.basicCreds, session: URLSession.shared) {
             (result) in
             switch result {
             case .success(let computerList):
@@ -80,6 +83,7 @@ class ContentViewModel: ObservableObject{
             }
         }
     }
+//    public func updateDevice(id: String,)
     
     public func updateDevice(udid: String, notes: String, completion: @escaping (Result<JSResponse,Error>)->Void) {
         _ = DeviceUpdateRequest(udid: udid, notes: notes).submitDeviceUpdate(baseUrl: credentials.server, credentials: credentials.basicCreds, session: URLSession.shared){
@@ -103,7 +107,6 @@ class ContentViewModel: ObservableObject{
         for task in searchTasks {
             task?.cancel()
         }
-        print("running")
         DispatchQueue.global().async{
             let group = DispatchGroup()
             var deviceList = Array<SearchedDevice>()
@@ -111,7 +114,7 @@ class ContentViewModel: ObservableObject{
             var allowComputer = false
             var lastError: Error?
             group.enter()
-            self.searchTasks.append(self.computerSearch() {
+            self.searchTasks.append(self.computerSearch(searchText: searchValue) {
                 result in
                 switch result {
                 case .success(let computerList):
@@ -125,7 +128,7 @@ class ContentViewModel: ObservableObject{
             })
             
             group.enter()
-            self.searchTasks.append(self.mobileDeviceSearch() {
+            self.searchTasks.append(self.mobileDeviceSearch(searchText: searchValue) {
                 result in
                 switch result {
                 case .success(let mobileDeviceList):
@@ -141,14 +144,18 @@ class ContentViewModel: ObservableObject{
             group.wait()
             
             if !allowMobile && !allowComputer {
-                DispatchQueue.main.async {
-                    if let myError = lastError {
-                        self.errorDescription = myError.localizedDescription
+                if let lastError = lastError as? URLError {
+                    if lastError.errorCode == -999
+                    {
+                        return
                     }
+                }
+                DispatchQueue.main.async {
+                    print(lastError)
+                    self.errorDescription = lastError?.localizedDescription ?? "Unknown"
                 }
                 print("cancelled")
                 return
-
             }
             DispatchQueue.main.async {
                 self.deviceArray = deviceList

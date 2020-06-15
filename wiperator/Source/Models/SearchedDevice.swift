@@ -31,18 +31,24 @@ struct SearchedDevice: Codable, Identifiable {
     var department: String?
     var departmentName: String?
 }
-// todo: UGH this is a hack and liable to fail one day with an update to the api
+// todo: UGH this is a hack and liable to fail one day with an update to the api. probably not though
 extension SearchedDevice {
-    var osValue: OSValue {
+    var isiOS: Bool {
         get {
-            return barCode2 == nil ? .mobileDevice : .computer
+            return barCode2 == nil
         }
+    }
+    var deviceType: Device.Type {
+        if isiOS {
+            return MobileDevice.self
+        }
+        return Computer.self
     }
 }
 
-enum OSValue {
-    case computer
-    case mobileDevice
-}
-//
+//enum OSValue {
+//    case computer
+//    case mobileDevice
+//}
+////
 

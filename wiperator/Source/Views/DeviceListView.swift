@@ -15,7 +15,7 @@ struct DeviceListView: View {
 
     var body: some View {
             List(deviceArray) { device in
-                NavigationLink(destination: DeviceDetailView(device: device, credentials: self.credentials,updateFunc:self.updateFunc))
+                NavigationLink(destination: DeviceDetailView(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials, updateFunc: self.updateFunc))
                 {
                 DeviceRow(device: device, credentials: self.credentials)
                 }
@@ -36,7 +36,7 @@ struct DeviceRow: View {
     
     var body: some View {
         HStack {
-//            DeviceImage(device.isiOS)
+            DeviceImage(device.isiOS)
 //            CheckedInImage(device.isCheckedIn)
             Text(device.name ?? "")
             Text(device.assetTag ?? "")

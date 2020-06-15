@@ -11,7 +11,10 @@ import SwiftUI
 struct DeviceDetailView: View {
 
     @State var showModal = false
-    @State var device: SearchedDevice
+    @State var searchedDevice: SearchedDevice
+    @State var device: Device?
+    @State var deviceType: Device.Type
+//    @State var fullDevice: 
     let credentials: Credentials
     
     let updateFunc: ((String, String, @escaping (Result<JSResponse, Error>) -> Void) -> ())?
@@ -19,9 +22,9 @@ struct DeviceDetailView: View {
     var body: some View {
       VStack {
         VStack {
-            Text(device.name ?? "")
-            Text(device.serialNumber ?? "")
-            Text(device.assetTag ?? "")
+            Text(searchedDevice.name ?? "")
+            Text(searchedDevice.serialNumber ?? "")
+            Text(searchedDevice.assetTag ?? "")
         }
         HStack() {
             Button(action: {
@@ -35,7 +38,7 @@ struct DeviceDetailView: View {
                 }
                 .background(Color.init("TextBackground"))
             }.sheet(isPresented: self.$showModal) {
-                OptionSheet(title: "Wiping: \(self.device.name ?? "Unknown")", description: "Are you sure?") { choice in
+                OptionSheet(title: "Wiping: \(self.searchedDevice.name ?? "Unknown")", description: "Are you sure?") { choice in
 //                    if choice {
 //                    _ = WipeRequest(udid: self.device.UDID, clearActivationLock: "true").submitWipeRequest(baseURL: self.credentials.server, credentials: self.credentials.basicCreds, session: URLSession.shared) {
 //                        _ in
@@ -88,6 +91,9 @@ struct DeviceDetailView: View {
         }
         Spacer()
       }
+      .onAppear {
+
+        }
     }
 //    func updateDevice() {
 //        Device.deviceRequest(baseURL: credentials.server, udid: device.UDID ?? "", credentials: credentials.basicCreds, session: URLSession.shared){
