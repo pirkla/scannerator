@@ -9,9 +9,9 @@
 import Foundation
 
 struct Credentials {
-    var username: String
-    var password: String
-    var server: URLComponents
+    var username: String = ""
+    var password: String = ""
+    var server: URLComponents = URLComponents()
     var basicCreds : String {
         get {
             return String("\(username):\(password)").toBase64()
@@ -22,6 +22,7 @@ struct Credentials {
 }
 
 extension Credentials {
+    
     static func saveCredentials(networkID: String, apiKey: String, server: String) throws {
         try! removeCredentials(server: server, networkID: networkID)
         let password = apiKey.data(using: String.Encoding.utf8)!

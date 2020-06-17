@@ -11,11 +11,10 @@ import SwiftUI
 struct DeviceListView: View {
     var deviceArray: [SearchedDevice]
     var credentials: Credentials
-    let updateFunc: ((String, String, @escaping (Result<JSResponse, Error>) -> Void) -> ())?
-
+    
     var body: some View {
             List(deviceArray) { device in
-                NavigationLink(destination: DeviceDetailView(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials, updateFunc: self.updateFunc))
+                NavigationLink(destination: DeviceDetailView(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials))
                 {
                 DeviceRow(device: device, credentials: self.credentials)
                 }
@@ -25,7 +24,7 @@ struct DeviceListView: View {
 
 struct DeviceListView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceListView(deviceArray: [SearchedDevice](), credentials: Credentials(username: "", password: "", server: URLComponents()), updateFunc: nil)
+        DeviceListView(deviceArray: [SearchedDevice](), credentials: Credentials(username: "", password: "", server: URLComponents()))
     }
 }
 
@@ -62,8 +61,8 @@ struct DeviceRow: View {
 
 }
 
-//struct DeviceRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeviceRow(device: SearchedDevice(), credentials: Credentials(username: "", password: "", server: URLComponents()))
-//    }
-//}
+struct DeviceRow_Previews: PreviewProvider {
+    static var previews: some View {
+        DeviceRow(device: SearchedDevice(id: 1, name: nil, udid: nil, serialNumber: nil, macAddress: nil, altMacAddress: nil, assetTag: nil, barCode1: nil, barCode2: nil, username: nil, realName: nil, email: nil, emailAddress: nil, room: nil, position: nil, building: nil, buildingName: nil, department: nil, departmentName: ""), credentials: Credentials(username: "", password: "", server: URLComponents()))
+    }
+}

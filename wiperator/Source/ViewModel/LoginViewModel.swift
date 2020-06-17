@@ -94,7 +94,7 @@ class LoginViewModel: ObservableObject {
             var allowComputer = false
             var lastError: Error?
             group.enter()
-            self.computerSearch() {
+            _ = self.computerSearch() {
                 result in
                 switch result {
                 case .success(let computerList):
@@ -108,7 +108,7 @@ class LoginViewModel: ObservableObject {
             }
             
             group.enter()
-            self.mobileDeviceSearch() {
+            _ = self.mobileDeviceSearch() {
                 result in
                 switch result {
                 case .success(let mobileDeviceList):

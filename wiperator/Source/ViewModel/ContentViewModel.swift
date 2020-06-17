@@ -40,22 +40,7 @@ class ContentViewModel: ObservableObject{
             activeSheet = .errorView
         }
     }
-//    private func deviceSearch(){
-//        
-//    }
-//    private func deviceSearch(searchType: String, search: String, completion: @escaping (Result<[Device], Error>) -> Void)-> URLSessionDataTask?{
-//        let queryArray = [URLQueryItem(name: searchType,value: search)]
-//        return Device.allDevicesRequest(baseURL: self.credentials.server, filters: queryArray, credentials: self.credentials.basicCreds, session: URLSession.shared) {
-//            (result) in
-//            switch result {
-//            case .success(let allDevices):
-//                completion(.success(allDevices.devices))
-//            case .failure(let error):
-//                completion(.failure(error))
-//                print(error)
-//            }
-//        }
-//    }
+
     func mobileDeviceSearch(searchText:String, completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionDataTask? {
         return MobileDevice.mobileSearchRequest(baseURL: credentials.server, match: searchText, credentials: credentials.basicCreds, session: URLSession.shared) {
             (result) in
@@ -80,25 +65,6 @@ class ContentViewModel: ObservableObject{
             case .failure(let error):
                 completion(.failure(error))
                 print(error)
-            }
-        }
-    }
-//    public func updateDevice(id: String,)
-    
-    public func updateDevice(udid: String, notes: String, completion: @escaping (Result<JSResponse,Error>)->Void) {
-        _ = DeviceUpdateRequest(udid: udid, notes: notes).submitDeviceUpdate(baseUrl: credentials.server, credentials: credentials.basicCreds, session: URLSession.shared){
-            (result) in
-            switch result {
-            case .success(let response):
-                #if targetEnvironment(macCatalyst)
-//                self.searchHandler(searchValue: self.lookupText)
-                #endif
-                completion(.success(response))
-            case .failure(let error):
-                completion(.failure(error))
-                print(error)
-                //todo: handle non-200 response in jssresponse (maybe up the line a step) - why is that even a thing?
-                self.errorDescription = error.localizedDescription
             }
         }
     }
@@ -151,7 +117,7 @@ class ContentViewModel: ObservableObject{
                     }
                 }
                 DispatchQueue.main.async {
-                    print(lastError)
+                    print(lastError as Any)
                     self.errorDescription = lastError?.localizedDescription ?? "Unknown"
                 }
                 print("cancelled")
@@ -161,24 +127,6 @@ class ContentViewModel: ObservableObject{
                 self.deviceArray = deviceList
             }
         }
-        
-//        computerTask =
-        
-//        searchTask = deviceSearch(searchType: self.searchModelArray[self.searchIndex].value, search: searchValue){
-//            [weak self]
-//            (result) in
-//            switch result {
-//            case .success(let devices):
-//                DispatchQueue.main.async {
-////                    self?.deviceArray = devices
-//                }
-//            case .failure(let error):
-//                DispatchQueue.main.async {
-//                    self?.deviceArray = Array<SearchedDevice>()
-//                    print(error)
-//                }
-//            }
-//        }
     }
 
     func checkCameraAccess(completion: @escaping (Bool)->Void) {

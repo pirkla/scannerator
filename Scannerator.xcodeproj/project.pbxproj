@@ -20,11 +20,11 @@
 		719E6602248481740040ABD9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6601248481740040ABD9 /* LoginView.swift */; };
 		719E6604248481ED0040ABD9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6603248481ED0040ABD9 /* LoginViewModel.swift */; };
 		719E6606248485D50040ABD9 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6605248485D50040ABD9 /* Credentials.swift */; };
+		71C2B5562499B141008BC6FA /* DeviceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C2B5552499B141008BC6FA /* DeviceDetailViewModel.swift */; };
 		71E1C277247F6BFE00113824 /* InfoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E1C276247F6BFE00113824 /* InfoSheetView.swift */; };
 		71E1C279247F6E6A00113824 /* OptionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E1C278247F6E6A00113824 /* OptionSheet.swift */; };
 		71F7058A248DC03B0089387E /* WipeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F70589248DC03B0089387E /* WipeRequest.swift */; };
 		71F7058C248DC07A0089387E /* DeviceUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F7058B248DC07A0089387E /* DeviceUpdateRequest.swift */; };
-		71F7058E248DC0D30089387E /* JSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F7058D248DC0D30089387E /* JSResponse.swift */; };
 		71F70592248DEE760089387E /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F70591248DEE760089387E /* DeviceDetailView.swift */; };
 		71FD3D50247F241C001CC553 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD3D4F247F241C001CC553 /* AppDelegate.swift */; };
 		71FD3D52247F241C001CC553 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD3D51247F241C001CC553 /* SceneDelegate.swift */; };
@@ -73,11 +73,11 @@
 		719E6601248481740040ABD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		719E6603248481ED0040ABD9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		719E6605248485D50040ABD9 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		71C2B5552499B141008BC6FA /* DeviceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewModel.swift; sourceTree = "<group>"; };
 		71E1C276247F6BFE00113824 /* InfoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheetView.swift; sourceTree = "<group>"; };
 		71E1C278247F6E6A00113824 /* OptionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSheet.swift; sourceTree = "<group>"; };
 		71F70589248DC03B0089387E /* WipeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WipeRequest.swift; sourceTree = "<group>"; };
 		71F7058B248DC07A0089387E /* DeviceUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUpdateRequest.swift; sourceTree = "<group>"; };
-		71F7058D248DC0D30089387E /* JSResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSResponse.swift; sourceTree = "<group>"; };
 		71F70591248DEE760089387E /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		71FD3D4C247F241C001CC553 /* Wiperator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wiperator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FD3D4F247F241C001CC553 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,10 +87,10 @@
 		71FD3D58247F241E001CC553 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		71FD3D5B247F241E001CC553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71FD3D5D247F241E001CC553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71FD3D62247F241E001CC553 /* wiperatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wiperatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71FD3D62247F241E001CC553 /* ScanneratorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanneratorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FD3D66247F241E001CC553 /* wiperatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wiperatorTests.swift; sourceTree = "<group>"; };
 		71FD3D68247F241E001CC553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71FD3D6D247F241E001CC553 /* wiperatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wiperatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71FD3D6D247F241E001CC553 /* ScanneratorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanneratorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FD3D71247F241E001CC553 /* wiperatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wiperatorUITests.swift; sourceTree = "<group>"; };
 		71FD3D73247F241E001CC553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71FD3D80247F2461001CC553 /* URLSessionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionExtension.swift; sourceTree = "<group>"; };
@@ -163,8 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				71FD3D4C247F241C001CC553 /* Wiperator.app */,
-				71FD3D62247F241E001CC553 /* wiperatorTests.xctest */,
-				71FD3D6D247F241E001CC553 /* wiperatorUITests.xctest */,
+				71FD3D62247F241E001CC553 /* ScanneratorTests.xctest */,
+				71FD3D6D247F241E001CC553 /* ScanneratorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,7 +230,6 @@
 				719E6605248485D50040ABD9 /* Credentials.swift */,
 				71F70589248DC03B0089387E /* WipeRequest.swift */,
 				71F7058B248DC07A0089387E /* DeviceUpdateRequest.swift */,
-				71F7058D248DC0D30089387E /* JSResponse.swift */,
 				71FD3D87247F246B001CC553 /* Device.swift */,
 				719C3F582496C7E700437D90 /* Computer.swift */,
 				719C3F5A2496CE9700437D90 /* MobileDevice.swift */,
@@ -259,6 +258,7 @@
 			children = (
 				71FD3D92247F46A7001CC553 /* ContentViewModel.swift */,
 				719E6603248481ED0040ABD9 /* LoginViewModel.swift */,
+				71C2B5552499B141008BC6FA /* DeviceDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -266,9 +266,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		71FD3D4B247F241C001CC553 /* wiperator */ = {
+		71FD3D4B247F241C001CC553 /* Scannerator */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 71FD3D76247F241E001CC553 /* Build configuration list for PBXNativeTarget "wiperator" */;
+			buildConfigurationList = 71FD3D76247F241E001CC553 /* Build configuration list for PBXNativeTarget "Scannerator" */;
 			buildPhases = (
 				71FD3D48247F241C001CC553 /* Sources */,
 				71FD3D49247F241C001CC553 /* Frameworks */,
@@ -278,14 +278,14 @@
 			);
 			dependencies = (
 			);
-			name = wiperator;
+			name = Scannerator;
 			productName = wiperator;
 			productReference = 71FD3D4C247F241C001CC553 /* Wiperator.app */;
 			productType = "com.apple.product-type.application";
 		};
-		71FD3D61247F241E001CC553 /* wiperatorTests */ = {
+		71FD3D61247F241E001CC553 /* ScanneratorTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 71FD3D79247F241E001CC553 /* Build configuration list for PBXNativeTarget "wiperatorTests" */;
+			buildConfigurationList = 71FD3D79247F241E001CC553 /* Build configuration list for PBXNativeTarget "ScanneratorTests" */;
 			buildPhases = (
 				71FD3D5E247F241E001CC553 /* Sources */,
 				71FD3D5F247F241E001CC553 /* Frameworks */,
@@ -296,14 +296,14 @@
 			dependencies = (
 				71FD3D64247F241E001CC553 /* PBXTargetDependency */,
 			);
-			name = wiperatorTests;
+			name = ScanneratorTests;
 			productName = wiperatorTests;
-			productReference = 71FD3D62247F241E001CC553 /* wiperatorTests.xctest */;
+			productReference = 71FD3D62247F241E001CC553 /* ScanneratorTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		71FD3D6C247F241E001CC553 /* wiperatorUITests */ = {
+		71FD3D6C247F241E001CC553 /* ScanneratorUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 71FD3D7C247F241E001CC553 /* Build configuration list for PBXNativeTarget "wiperatorUITests" */;
+			buildConfigurationList = 71FD3D7C247F241E001CC553 /* Build configuration list for PBXNativeTarget "ScanneratorUITests" */;
 			buildPhases = (
 				71FD3D69247F241E001CC553 /* Sources */,
 				71FD3D6A247F241E001CC553 /* Frameworks */,
@@ -314,9 +314,9 @@
 			dependencies = (
 				71FD3D6F247F241E001CC553 /* PBXTargetDependency */,
 			);
-			name = wiperatorUITests;
+			name = ScanneratorUITests;
 			productName = wiperatorUITests;
-			productReference = 71FD3D6D247F241E001CC553 /* wiperatorUITests.xctest */;
+			productReference = 71FD3D6D247F241E001CC553 /* ScanneratorUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -342,7 +342,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 71FD3D47247F241C001CC553 /* Build configuration list for PBXProject "wiperator" */;
+			buildConfigurationList = 71FD3D47247F241C001CC553 /* Build configuration list for PBXProject "Scannerator" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -355,9 +355,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				71FD3D4B247F241C001CC553 /* wiperator */,
-				71FD3D61247F241E001CC553 /* wiperatorTests */,
-				71FD3D6C247F241E001CC553 /* wiperatorUITests */,
+				71FD3D4B247F241C001CC553 /* Scannerator */,
+				71FD3D61247F241E001CC553 /* ScanneratorTests */,
+				71FD3D6C247F241E001CC553 /* ScanneratorUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -395,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				713F1A50248194CE00E24C40 /* SearchModel.swift in Sources */,
+				71C2B5562499B141008BC6FA /* DeviceDetailViewModel.swift in Sources */,
 				719C3F592496C7E700437D90 /* Computer.swift in Sources */,
 				710DB8D72482E6260064B088 /* KeychainError.swift in Sources */,
 				710DB8DD248351D40064B088 /* CodeScannerView.swift in Sources */,
@@ -406,7 +407,6 @@
 				7186D4A02492E804006249E9 /* ScannerErrorExtension.swift in Sources */,
 				71FD3D50247F241C001CC553 /* AppDelegate.swift in Sources */,
 				719C3F5D2496D68F00437D90 /* SearchedDevice.swift in Sources */,
-				71F7058E248DC0D30089387E /* JSResponse.swift in Sources */,
 				71FD3D88247F246B001CC553 /* Device.swift in Sources */,
 				71E1C279247F6E6A00113824 /* OptionSheet.swift in Sources */,
 				71FD3D84247F2461001CC553 /* StringExtension.swift in Sources */,
@@ -446,12 +446,12 @@
 /* Begin PBXTargetDependency section */
 		71FD3D64247F241E001CC553 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 71FD3D4B247F241C001CC553 /* wiperator */;
+			target = 71FD3D4B247F241C001CC553 /* Scannerator */;
 			targetProxy = 71FD3D63247F241E001CC553 /* PBXContainerItemProxy */;
 		};
 		71FD3D6F247F241E001CC553 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 71FD3D4B247F241C001CC553 /* wiperator */;
+			target = 71FD3D4B247F241C001CC553 /* Scannerator */;
 			targetProxy = 71FD3D6E247F241E001CC553 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -602,7 +602,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pirklator.wiperator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pirklator.scannerator;
 				PRODUCT_NAME = Wiperator;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -630,7 +630,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pirklator.wiperator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pirklator.scannerator;
 				PRODUCT_NAME = Wiperator;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -657,7 +657,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wiperator.app/wiperator";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scannerator.app/Scannerator";
 			};
 			name = Debug;
 		};
@@ -678,7 +678,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wiperator.app/wiperator";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scannerator.app/Scannerator";
 			};
 			name = Release;
 		};
@@ -723,7 +723,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		71FD3D47247F241C001CC553 /* Build configuration list for PBXProject "wiperator" */ = {
+		71FD3D47247F241C001CC553 /* Build configuration list for PBXProject "Scannerator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				71FD3D74247F241E001CC553 /* Debug */,
@@ -732,7 +732,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		71FD3D76247F241E001CC553 /* Build configuration list for PBXNativeTarget "wiperator" */ = {
+		71FD3D76247F241E001CC553 /* Build configuration list for PBXNativeTarget "Scannerator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				71FD3D77247F241E001CC553 /* Debug */,
@@ -741,7 +741,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		71FD3D79247F241E001CC553 /* Build configuration list for PBXNativeTarget "wiperatorTests" */ = {
+		71FD3D79247F241E001CC553 /* Build configuration list for PBXNativeTarget "ScanneratorTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				71FD3D7A247F241E001CC553 /* Debug */,
@@ -750,7 +750,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		71FD3D7C247F241E001CC553 /* Build configuration list for PBXNativeTarget "wiperatorUITests" */ = {
+		71FD3D7C247F241E001CC553 /* Build configuration list for PBXNativeTarget "ScanneratorUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				71FD3D7D247F241E001CC553 /* Debug */,

@@ -33,6 +33,10 @@ struct SearchedDevice: Codable, Identifiable {
 }
 // todo: UGH this is a hack and liable to fail one day with an update to the api. probably not though
 extension SearchedDevice {
+    init(id: Int){
+        self.id = id
+    }
+    
     var isiOS: Bool {
         get {
             return barCode2 == nil

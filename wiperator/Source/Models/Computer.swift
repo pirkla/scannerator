@@ -27,16 +27,11 @@ struct ComputerGeneral: Codable {
     var assetTag: String?
     var barCode1: String?
     var barCode2: String?
-//    var username: String?
-//    var realName: String?
-//    var email: String?
-//    var emailAddress: String?
-//    var room: String?
-//    var position: String?
-//    var building: String?
-//    var buildingName: String?
-//    var department: String?
-//    var departmentName: String?
+    var remoteManagement: RemoteManagement?
+}
+
+struct RemoteManagement: Codable {
+    var managed: Bool?
 }
 
 struct ComputerSearch: Codable {
@@ -53,7 +48,49 @@ extension Computer: Device {
     
     var assetTag: String? { return self.general.assetTag }
     
-    var isCheckedIn: Bool { return true }
+    var managed: Bool? { return self.general.remoteManagement?.managed }
+    
+    var isCheckedIn: Bool? {
+        guard let checkedInAtr = (extensionAttributes.first {
+            $0.name == "isCheckedIn"
+        }) else {
+            return nil
+        }
+        if checkedInAtr.value == "1" {
+            return true
+        }
+        else if checkedInAtr.value == "0" {
+            return false
+        }
+        return nil
+    }
+    
+    // currently hidden - Jamf School doesn't have parity for this(api is broken) and it can be too powerful
+    static func wipeRequest(baseURL: URLComponents,id: Int,passcode: Int?, credentials: String, session: URLSession, completion: @escaping (Result<Data,Error>)-> Void){
+        var urlComponents = baseURL
+        guard let passcode = passcode else {
+            completion(.failure(NSError()))
+            return
+        }
+        urlComponents.path="/JSSResource/computercommands/command/EraseDevice/passcode/\(passcode)/id/\(id)"
+        
+        guard let myUrl = urlComponents.url else {
+            completion(.failure(NSError()))
+            return
+        }
+        let myRequest = URLRequest(url: myUrl,basicCredentials:credentials, method: HTTPMethod.post,accept: ContentType.json)
+        _ = session.dataTask(request: myRequest) {
+            (result: Result<Data, Error>) in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }.resume()
+        return
+    }
+    
     
     static func deviceRequest(baseURL: URLComponents,id: Int,credentials: String, session: URLSession, completion: @escaping (Result<Device,Error>)-> Void) {
         var urlComponents = baseURL
@@ -75,6 +112,28 @@ extension Computer: Device {
         return
     }
     
+    static func updateRequest(baseURL: URLComponents, checkinInt: Int ,id: Int,credentials: String, session: URLSession, completion: @escaping (Result<Data,Error>)-> Void) {
+        let xmlString = "<computer><extension_attributes><extension_attribute><name>isCheckedIn</name><value>\(checkinInt)</value></extension_attribute></extension_attributes></computer>"
+        let xmlData = xmlString.data(using: .utf8)
+        
+        var urlComponents = baseURL
+        urlComponents.path="/JSSResource/computers/id/\(id)"
+        guard let myUrl = urlComponents.url else {
+            completion(.failure(NSError()))
+            return
+        }
+        let myRequest = URLRequest(url: myUrl,basicCredentials:credentials, method: HTTPMethod.put,dataToSubmit: xmlData, contentType: .xml ,accept: ContentType.xml)
+        _ = session.dataTask(request: myRequest) {
+            (result: Result<Data, Error>) in
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }.resume()
+        return
+    }
 }
 
 extension Computer {
