@@ -9,13 +9,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var loadingAnimModel = LoadingAnimModel()
     @ObservedObject var contentViewModel = ContentViewModel()
-    @State var isLoading = true
+//    @State var isLoading = true
     
     var body: some View {
         VStack() {
-            LogoView(animate: $loadingAnimModel.isLoading ).frame(width: 100, height: 100)
+            LogoView(animate: $contentViewModel.isLoading).frame(width: 100, height: 100)
 
             HStack() {
                 Button(action: {

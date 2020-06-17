@@ -13,7 +13,6 @@ struct DeviceDetailView: View {
     @State private var showCheckin = false
     @State private var showWipe = false
     @ObservedObject var deviceDetailViewModel: DeviceDetailViewModel
-    var isLoading: Binding<Bool>
     
     @State var animate: Bool = false {
         willSet {
@@ -37,20 +36,14 @@ struct DeviceDetailView: View {
                 .onAppear {
                 self.showWipe = true
             }
-                .onDisappear {
-                    self.showWipe = false
-            }
             deviceDetailViewModel.checkedInView()
                 .scaleEffect(showCheckin ? 1 : 0)
                 .animation(.easeInOut)
                 .onAppear {
                 self.showCheckin = true
             }
-                .onDisappear {
-                self.showCheckin = false
-            }
         }
-        LogoView(animate: $deviceDetailViewModel.isLoading).frame(width: 100, height: 100)
+//        LogoView(animate: $deviceDetailViewModel.isLoading).frame(width: 100, height: 100)
         Spacer()
       }
       .onAppear {

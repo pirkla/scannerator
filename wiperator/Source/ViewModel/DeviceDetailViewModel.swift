@@ -14,7 +14,7 @@ class DeviceDetailViewModel: ObservableObject {
     @Published var searchedDevice: SearchedDevice
     @Published var device: Device?
     @Published var deviceType: Device.Type
-    @Published var isLoading: Binding<Bool>
+//    @Published var isLoading: Bool = true
     let credentials: Credentials
     
     init(searchedDevice: SearchedDevice, deviceType: Device.Type, credentials: Credentials) {
@@ -24,7 +24,7 @@ class DeviceDetailViewModel: ObservableObject {
     }
     
     func updateCheckin(_ checkinInt: Int) {
-        self.isLoading = true
+        
         deviceType.updateRequest.self(baseURL: self.credentials.server,checkinInt: checkinInt, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
             self.updateDevice()
@@ -120,15 +120,15 @@ class DeviceDetailViewModel: ObservableObject {
     }
 
     func updateDevice() {
-        DispatchQueue.main.async {
-            self.isLoading = true
-        }
+//        DispatchQueue.main.async {
+//            self.isLoading = true
+//        }
         deviceType.deviceRequest.self(baseURL: self.credentials.server, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
             switch result {
             case .success(let deviceResponse):
                 DispatchQueue.main.async {
-                    self.isLoading = false
+//                    self.isLoading = false
                     self.device = deviceResponse
                 }
             case .failure(let error):

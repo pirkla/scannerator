@@ -16,13 +16,13 @@ class ContentViewModel: ObservableObject{
     var credentials: Credentials = Credentials(username: "", password: "", server: URLComponents())
     var searchTasks: [URLSessionDataTask?] = [URLSessionDataTask?]()
     @Published var showSheet = true
-    //feature: make wildcard optional
     @Published var lookupText: String = "" {
         willSet(newValue){
             searchHandler(searchValue: "*" + newValue + "*")
         }
     }
     @Published var deviceArray = Array<SearchedDevice>()
+    @Published var isLoading: Bool = false
     
     enum ActiveSheet {
        case login, scanner, errorView
@@ -40,6 +40,7 @@ class ContentViewModel: ObservableObject{
             activeSheet = .errorView
         }
     }
+    
 
     func mobileDeviceSearch(searchText:String, completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionDataTask? {
         return MobileDevice.mobileSearchRequest(baseURL: credentials.server, match: searchText, credentials: credentials.basicCreds, session: URLSession.shared) {
@@ -70,6 +71,7 @@ class ContentViewModel: ObservableObject{
     }
     
     private func searchHandler(searchValue: String) {
+        self.isLoading = true
         for task in searchTasks {
             task?.cancel()
         }
@@ -108,7 +110,7 @@ class ContentViewModel: ObservableObject{
             })
             
             group.wait()
-            
+            self.isLoading = false
             if !allowMobile && !allowComputer {
                 if let lastError = lastError as? URLError {
                     if lastError.errorCode == -999

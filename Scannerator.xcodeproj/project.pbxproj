@@ -22,7 +22,7 @@
 		719E6606248485D50040ABD9 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E6605248485D50040ABD9 /* Credentials.swift */; };
 		71C2B5562499B141008BC6FA /* DeviceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C2B5552499B141008BC6FA /* DeviceDetailViewModel.swift */; };
 		71C2B5572499CA92008BC6FA /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7186D4A124932F44006249E9 /* LogoView.swift */; };
-		71CD41E3249AB8AA00540B1A /* LoadingAnimModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CD41E2249AB8AA00540B1A /* LoadingAnimModel.swift */; };
+		71CD41E5249AC90B00540B1A /* LoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CD41E4249AC90B00540B1A /* LoadingController.swift */; };
 		71E1C277247F6BFE00113824 /* InfoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E1C276247F6BFE00113824 /* InfoSheetView.swift */; };
 		71E1C279247F6E6A00113824 /* OptionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E1C278247F6E6A00113824 /* OptionSheet.swift */; };
 		71F70592248DEE760089387E /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F70591248DEE760089387E /* DeviceDetailView.swift */; };
@@ -74,7 +74,7 @@
 		719E6603248481ED0040ABD9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		719E6605248485D50040ABD9 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		71C2B5552499B141008BC6FA /* DeviceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewModel.swift; sourceTree = "<group>"; };
-		71CD41E2249AB8AA00540B1A /* LoadingAnimModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimModel.swift; sourceTree = "<group>"; };
+		71CD41E4249AC90B00540B1A /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
 		71E1C276247F6BFE00113824 /* InfoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheetView.swift; sourceTree = "<group>"; };
 		71E1C278247F6E6A00113824 /* OptionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSheet.swift; sourceTree = "<group>"; };
 		71F70591248DEE760089387E /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 				71FD3D92247F46A7001CC553 /* ContentViewModel.swift */,
 				719E6603248481ED0040ABD9 /* LoginViewModel.swift */,
 				71C2B5552499B141008BC6FA /* DeviceDetailViewModel.swift */,
-				71CD41E2249AB8AA00540B1A /* LoadingAnimModel.swift */,
+				71CD41E4249AC90B00540B1A /* LoadingController.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -400,6 +400,7 @@
 				710DB8DD248351D40064B088 /* CodeScannerView.swift in Sources */,
 				719C3F5F2497247000437D90 /* ExtensionAttribute.swift in Sources */,
 				71FD3D83247F2461001CC553 /* URLSessionExtension.swift in Sources */,
+				71CD41E5249AC90B00540B1A /* LoadingController.swift in Sources */,
 				71F70592248DEE760089387E /* DeviceDetailView.swift in Sources */,
 				711BED03248F1DEE00D15CC9 /* DataTaskError.swift in Sources */,
 				7186D4A02492E804006249E9 /* ScannerErrorExtension.swift in Sources */,
@@ -418,7 +419,6 @@
 				71FD3D8E247F4155001CC553 /* DeviceListView.swift in Sources */,
 				71FD3D54247F241C001CC553 /* ContentView.swift in Sources */,
 				719C3F5B2496CE9700437D90 /* MobileDevice.swift in Sources */,
-				71CD41E3249AB8AA00540B1A /* LoadingAnimModel.swift in Sources */,
 				71E1C277247F6BFE00113824 /* InfoSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
