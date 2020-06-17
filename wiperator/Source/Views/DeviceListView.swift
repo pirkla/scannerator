@@ -14,7 +14,7 @@ struct DeviceListView: View {
     
     var body: some View {
             List(deviceArray) { device in
-                NavigationLink(destination: DeviceDetailView(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials))
+                NavigationLink(destination: DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials)))
                 {
                 DeviceRow(device: device, credentials: self.credentials)
                 }

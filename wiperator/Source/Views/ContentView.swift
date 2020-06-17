@@ -9,10 +9,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var loadingAnimModel = LoadingAnimModel()
     @ObservedObject var contentViewModel = ContentViewModel()
+    @State var isLoading = true
     
     var body: some View {
         VStack() {
+            LogoView(animate: $loadingAnimModel.isLoading ).frame(width: 100, height: 100)
+
             HStack() {
                 Button(action: {
                     self.contentViewModel.activeSheet = .login
@@ -55,12 +59,10 @@ struct ContentView: View {
                 .cornerRadius(10)
             }
             #if targetEnvironment(macCatalyst)
-            NavigationView {
-            DeviceListView(deviceArray: self.contentViewModel.deviceArray, credentials: self.contentViewModel.credentials)
+            NavigationView { DeviceListView(deviceArray: self.contentViewModel.deviceArray, credentials: self.contentViewModel.credentials)
             }.labelsHidden()
             #else
-            NavigationView {
-            DeviceListView(deviceArray: self.contentViewModel.deviceArray, credentials: self.contentViewModel.credentials, updateFunc: self.contentViewModel.updateDevice)
+            NavigationView { DeviceListView(deviceArray: self.contentViewModel.deviceArray, credentials: self.contentViewModel.credentials)
             }.navigationViewStyle(StackNavigationViewStyle())
             .labelsHidden()
             #endif

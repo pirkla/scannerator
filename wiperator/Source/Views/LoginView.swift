@@ -35,7 +35,7 @@ struct LoginView: View {
                 .cornerRadius(10)
             }
             HStack() {
-                Text("Network ID")
+                Text("Username")
                     .frame(width: 85, alignment: .trailing)
                 HStack {
                     TextField("", text: $loginViewModel.networkID)
@@ -47,7 +47,7 @@ struct LoginView: View {
                 .cornerRadius(10)
             }
             HStack() {
-                Text("API Key")
+                Text("Password")
                     .multilineTextAlignment(.leading)
                     .frame(width: 85, alignment: .trailing)
                 HStack {

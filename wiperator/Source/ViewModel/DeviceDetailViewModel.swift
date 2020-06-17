@@ -9,14 +9,22 @@
 import Foundation
 import SwiftUI
 
-class DeviceDetailViewmodel: ObservableObject {
+class DeviceDetailViewModel: ObservableObject {
     @Published var showModal = false
-    @Published var searchedDevice: SearchedDevice = SearchedDevice(id: 0)
+    @Published var searchedDevice: SearchedDevice
     @Published var device: Device?
-    @Published var deviceType: Device.Type = Computer.self
-    let credentials: Credentials = Credentials()
+    @Published var deviceType: Device.Type
+    @Published var isLoading: Binding<Bool>
+    let credentials: Credentials
+    
+    init(searchedDevice: SearchedDevice, deviceType: Device.Type, credentials: Credentials) {
+        self.searchedDevice = searchedDevice
+        self.deviceType = deviceType
+        self.credentials = credentials
+    }
     
     func updateCheckin(_ checkinInt: Int) {
+        self.isLoading = true
         deviceType.updateRequest.self(baseURL: self.credentials.server,checkinInt: checkinInt, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
             self.updateDevice()
@@ -29,7 +37,7 @@ class DeviceDetailViewmodel: ObservableObject {
         }
     }
     
-    func wipeView(showModal: Binding<Bool>) -> AnyView? {
+    func wipeView(_ showModal: Binding<Bool>) -> AnyView? {
         if !searchedDevice.isiOS ||  device == nil {
             return nil
         }
@@ -49,7 +57,6 @@ class DeviceDetailViewmodel: ObservableObject {
                     guard let device = self.device else {
                         return
                     }
-                    print("doinit")
                     self.deviceType.wipeRequest.self(baseURL: self.credentials.server, id: device.id, passcode: nil, credentials: self.credentials.basicCreds, session: URLSession.shared) {
                             result in
                             switch result {
@@ -63,7 +70,8 @@ class DeviceDetailViewmodel: ObservableObject {
             }
         }
         .cornerRadius(10)
-        .disabled(device?.managed != true))
+        .disabled(device?.managed != true)
+        )
     }
 
 
@@ -112,11 +120,17 @@ class DeviceDetailViewmodel: ObservableObject {
     }
 
     func updateDevice() {
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
         deviceType.deviceRequest.self(baseURL: self.credentials.server, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
             switch result {
             case .success(let deviceResponse):
-                self.device = deviceResponse
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.device = deviceResponse
+                }
             case .failure(let error):
                 print(error)
             }

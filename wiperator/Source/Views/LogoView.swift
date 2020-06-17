@@ -10,23 +10,20 @@ import SwiftUI
 
 struct LogoView: View {
     
-    @State public var animate: Bool = false
+    var animate: Binding<Bool>
+    
     static let rotationCount = 13
     var symbols: some View {
         ForEach(0..<LogoView.rotationCount) { i in
                 Parallelogramb(
-                    spinTime: self.animate ? 1:0,
-                    animationTime:self.animate ? 01:0
+                    spinTime: !self.animate.wrappedValue ? 1:0,
+                    animationTime: !self.animate.wrappedValue ? 01:0
                 )
                     .opacity(0.5)
                     .rotationEffect(.degrees(Double(i) / Double(LogoView.rotationCount)) * 360.0,anchor: .bottomLeading)
             .frame(width:100)
         }
-        .onAppear {
-            withAnimation(Animation.linear(duration: 5.0).repeatForever(autoreverses: false)) {
-            self.animate = true
-            }
-        }
+        .animation(animate.wrappedValue ? Animation.linear(duration: 5.0).repeatForever(autoreverses: false) : Animation.linear(duration: 5.0))
     }
     var body: some View {
         GeometryReader { geometry in
@@ -37,11 +34,11 @@ struct LogoView: View {
     }
 }
 
-struct LogoView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogoView(animate: false).drawingGroup()
-    }
-}
+//struct LogoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LogoView(false).drawingGroup()
+//    }
+//}
 
 struct ParallelogramView_Previews: PreviewProvider {
     
