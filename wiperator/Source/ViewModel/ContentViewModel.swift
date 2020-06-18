@@ -22,6 +22,8 @@ class ContentViewModel: ObservableObject{
         }
     }
     @Published var deviceArray = Array<SearchedDevice>()
+    
+    //this should really be an incrementer but its fine
     @Published var isLoading: Bool = false
     
     enum ActiveSheet {
@@ -38,6 +40,12 @@ class ContentViewModel: ObservableObject{
     private var errorDescription: String = "Unknown" {
         willSet {
             activeSheet = .errorView
+        }
+    }
+    
+    func setIsLoading(_ isLoading: Bool){
+        DispatchQueue.main.async {
+            self.isLoading = isLoading
         }
     }
     
@@ -110,7 +118,9 @@ class ContentViewModel: ObservableObject{
             })
             
             group.wait()
-            self.isLoading = false
+            DispatchQueue.main.async {
+                self.isLoading = false
+            }
             if !allowMobile && !allowComputer {
                 if let lastError = lastError as? URLError {
                     if lastError.errorCode == -999

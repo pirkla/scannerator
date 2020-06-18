@@ -11,22 +11,25 @@ import SwiftUI
 struct DeviceListView: View {
     var deviceArray: [SearchedDevice]
     var credentials: Credentials
+    var setIsLoading: (Bool) -> Void
     
     var body: some View {
-            List(deviceArray) { device in
-                NavigationLink(destination: DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials)))
+        List {
+            ForEach(deviceArray, id: \.self) { device in
+                NavigationLink(destination: DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials, setIsLoading: self.setIsLoading)))
                 {
                 DeviceRow(device: device, credentials: self.credentials)
                 }
             }
+        }
     }
 }
 
-struct DeviceListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DeviceListView(deviceArray: [SearchedDevice](), credentials: Credentials(username: "", password: "", server: URLComponents()))
-    }
-}
+//struct DeviceListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DeviceListView(deviceArray: [SearchedDevice](), credentials: Credentials(username: "", password: "", server: URLComponents()))
+//    }
+//}
 
 
 struct DeviceRow: View {
@@ -36,7 +39,6 @@ struct DeviceRow: View {
     var body: some View {
         HStack {
             DeviceImage(device.isiOS)
-//            CheckedInImage(device.isCheckedIn)
             Text(device.name ?? "")
             Text(device.assetTag ?? "")
         }
@@ -63,6 +65,6 @@ struct DeviceRow: View {
 
 struct DeviceRow_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceRow(device: SearchedDevice(id: 1, name: nil, udid: nil, serialNumber: nil, macAddress: nil, altMacAddress: nil, assetTag: nil, barCode1: nil, barCode2: nil, username: nil, realName: nil, email: nil, emailAddress: nil, room: nil, position: nil, building: nil, buildingName: nil, department: nil, departmentName: ""), credentials: Credentials(username: "", password: "", server: URLComponents()))
+        DeviceRow(device: SearchedDevice(id: 1), credentials: Credentials(username: "", password: "", server: URLComponents()))
     }
 }

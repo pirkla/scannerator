@@ -11,6 +11,7 @@ import Foundation
 
 
 struct SearchedDevice: Codable, Identifiable {
+    var uuid = UUID()
     var id : Int
     var name: String?
     var udid: String?
@@ -20,19 +21,33 @@ struct SearchedDevice: Codable, Identifiable {
     var assetTag: String?
     var barCode1: String?
     var barCode2: String?
-    var username: String?
-    var realName: String?
-    var email: String?
-    var emailAddress: String?
-    var room: String?
-    var position: String?
-    var building: String?
-    var buildingName: String?
-    var department: String?
-    var departmentName: String?
+//    var username: String?
+//    var realName: String?
+//    var email: String?
+//    var emailAddress: String?
+//    var room: String?
+//    var position: String?
+//    var building: String?
+//    var buildingName: String?
+//    var department: String?
+//    var departmentName: String?
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case udid
+        case serialNumber
+        case macAddress
+        case altMacAddress
+        case assetTag
+        case barCode1
+        case barCode2
+    }
+    
 }
 // todo: UGH this is a hack and liable to fail one day with an update to the api. probably not though
 extension SearchedDevice {
+    
     init(id: Int){
         self.id = id
     }
@@ -47,6 +62,12 @@ extension SearchedDevice {
             return MobileDevice.self
         }
         return Computer.self
+    }
+}
+
+extension SearchedDevice: Hashable {
+    static func == (lhs: SearchedDevice, rhs: SearchedDevice) -> Bool {
+        return lhs.uuid == rhs.uuid
     }
 }
 

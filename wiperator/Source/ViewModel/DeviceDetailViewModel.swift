@@ -16,11 +16,13 @@ class DeviceDetailViewModel: ObservableObject {
     @Published var deviceType: Device.Type
 //    @Published var isLoading: Bool = true
     let credentials: Credentials
+    var setIsLoading: (Bool) -> Void
     
-    init(searchedDevice: SearchedDevice, deviceType: Device.Type, credentials: Credentials) {
+    init(searchedDevice: SearchedDevice, deviceType: Device.Type, credentials: Credentials, setIsLoading: @escaping (Bool)->Void) {
         self.searchedDevice = searchedDevice
         self.deviceType = deviceType
         self.credentials = credentials
+        self.setIsLoading = setIsLoading
     }
     
     func updateCheckin(_ checkinInt: Int) {
@@ -123,11 +125,13 @@ class DeviceDetailViewModel: ObservableObject {
 //        DispatchQueue.main.async {
 //            self.isLoading = true
 //        }
+        self.setIsLoading(true)
         deviceType.deviceRequest.self(baseURL: self.credentials.server, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
             switch result {
             case .success(let deviceResponse):
                 DispatchQueue.main.async {
+                    self.setIsLoading(false)
 //                    self.isLoading = false
                     self.device = deviceResponse
                 }

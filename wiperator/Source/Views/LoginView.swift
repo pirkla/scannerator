@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct LoginView: View {
-//    @State private var serverError = ""
-//    @State private var loggingIn = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var loginViewModel = LoginViewModel()
     var completion: (Credentials,[SearchedDevice]) -> Void
@@ -69,8 +67,6 @@ struct LoginView: View {
             .frame(width: 350.0, height: 22.0)
             Spacer().frame(height:30)
             HStack(alignment:.top) {
-//                LogoView().scaleEffect(1)
-//                    .frame(width: 200.0, height: 200.0)
                 Button(action: {
                     self.loginViewModel.login() {
                         (credentials, devices) in
@@ -97,16 +93,21 @@ struct LoginView: View {
         }
         .disabled(self.loginViewModel.loggingIn)
         .onAppear {
-            self.loginViewModel.loadCredentials()
-            if self.loginViewModel.readConfig() {
-                self.loginViewModel.login() {
-                    (credentials, devices) in
-                    self.completion(credentials, devices)
-                    DispatchQueue.main.async {
-                        self.presentationMode.wrappedValue.dismiss()
+            self.loginViewModel.loggingIn = true
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.7){
+                self.loginViewModel.loadCredentials()
+                if self.loginViewModel.readConfig() {
+                    self.loginViewModel.login() {
+                        (credentials, devices) in
+                        self.completion(credentials, devices)
+                        DispatchQueue.main.async {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     }
                 }
+                self.loginViewModel.loggingIn = false
             }
+
         }
     }
 }
