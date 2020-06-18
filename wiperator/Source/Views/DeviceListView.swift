@@ -41,7 +41,7 @@ struct DeviceRow: View {
         HStack {
             DeviceImage(device.isiOS)
             Text(device.name ?? "")
-            Text(device.assetTag ?? "")
+            Text(device.serialNumber ?? "")
         }
     }
     func CheckedInImage(_ isCheckedIn: Bool) -> Image {

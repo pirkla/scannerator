@@ -28,7 +28,7 @@ struct LoginView: View {
                     .disableAutocorrection(true)
                 }
                 .padding(.horizontal, 7.0)
-                .frame(idealWidth: 150.0 ,maxWidth: 350)
+                .frame(idealWidth: 150.0 ,maxWidth: 350,idealHeight: 25,maxHeight: 25)
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
             }
@@ -40,7 +40,7 @@ struct LoginView: View {
                     .disableAutocorrection(true)
                 }
                 .padding(.horizontal, 7.0)
-                .frame(idealWidth: 150.0 ,maxWidth: 350)
+                .frame(idealWidth: 150.0 ,maxWidth: 350,idealHeight: 25,maxHeight: 25)
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
             }
@@ -52,7 +52,7 @@ struct LoginView: View {
                 SecureField("", text:  $loginViewModel.apiKey)
                 }
                 .padding(.horizontal, 7.0)
-                .frame(idealWidth: 150.0 ,maxWidth: 350)
+                .frame(idealWidth: 150.0 ,maxWidth: 350,idealHeight: 25,maxHeight: 25)
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
             }
@@ -68,7 +68,7 @@ struct LoginView: View {
             Spacer().frame(height:30)
             HStack(alignment:.top) {
                 Button(action: {
-                    self.loginViewModel.login() {
+                    self.loginViewModel.login(true) {
                         (credentials, devices) in
                         self.completion(credentials, devices)
                         DispatchQueue.main.async {
@@ -94,10 +94,11 @@ struct LoginView: View {
         .disabled(self.loginViewModel.loggingIn)
         .onAppear {
             self.loginViewModel.loggingIn = true
+            self.loginViewModel.loadCredentials()
+
             DispatchQueue.main.asyncAfter(deadline: .now()+0.7){
-                self.loginViewModel.loadCredentials()
                 if self.loginViewModel.readConfig() {
-                    self.loginViewModel.login() {
+                    self.loginViewModel.login(false) {
                         (credentials, devices) in
                         self.completion(credentials, devices)
                         DispatchQueue.main.async {

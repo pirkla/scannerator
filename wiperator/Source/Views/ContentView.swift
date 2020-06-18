@@ -61,10 +61,10 @@ struct ContentView: View {
                 .cornerRadius(10)
             }
             #if targetEnvironment(macCatalyst)
-            NavigationView { DeviceListView(deviceArray: self.contentViewModel.deviceArray, credentials: self.contentViewModel.credentials, setIsLoading: self.contentViewModel.setIsLoading(_:))
+            NavigationView { DeviceListView(deviceArray: self.contentViewModel.projectedDeviceArray, credentials: self.contentViewModel.credentials, setIsLoading: contentViewModel.setIsLoading(_:), setErrorDescription: contentViewModel.setErrorDescription(_ :))
             }.labelsHidden()
             #else
-            NavigationView { DeviceListView(deviceArray: self.contentViewModel.deviceArray, credentials: self.contentViewModel.credentials, setIsLoading: contentViewModel.setIsLoading(_:), setErrorDescription: contentViewModel.setErrorDescription(_ :))
+            NavigationView { DeviceListView(deviceArray: self.contentViewModel.projectedDeviceArray, credentials: self.contentViewModel.credentials, setIsLoading: contentViewModel.setIsLoading(_:), setErrorDescription: contentViewModel.setErrorDescription(_ :))
             }.navigationViewStyle(StackNavigationViewStyle())
             .labelsHidden()
             #endif

@@ -16,10 +16,10 @@ struct LogoView: View {
     var symbols: some View {
         ForEach(0..<LogoView.rotationCount) { i in
                 Parallelogramb(
-                    spinTime: !self.animate.wrappedValue ? 1:0,
-                    animationTime: !self.animate.wrappedValue ? 01:0
+                    spinTime: !self.animate.wrappedValue ? 0:1,
+                    animationTime: !self.animate.wrappedValue ? 0:1
                 )
-                    .opacity(0.5)
+//                    .opacity(0.5)
                     .rotationEffect(.degrees(Double(i) / Double(LogoView.rotationCount)) * 360.0,anchor: .bottomLeading)
             .frame(width:100)
         }
@@ -51,6 +51,7 @@ struct ParallelogramView_Previews: PreviewProvider {
 struct Parallelogramb: Shape{
     var spinTime: CGFloat
     var animationTime: CGFloat
+    var peakTime = 2.3
     
     var animatableData: AnimatablePair<CGFloat,CGFloat>
     {
@@ -63,8 +64,7 @@ struct Parallelogramb: Shape{
     
     var triangleOffset: CGFloat{
         get {
-            // x1 adjusts curve peak time
-            let x = pow((Double(animationTime)*3)-2,5)
+            let x = pow((Double(animationTime)*4)-peakTime,5)
             let y = CGFloat(Double.sech(x:x)*0.75)
             let bounce = Double.sechDeriv(x:x)
             return y + CGFloat(bounce * 0.8)
@@ -72,13 +72,13 @@ struct Parallelogramb: Shape{
     }
     var testAngleB:CGFloat {
         get{
-            let y = (-abs(Double(animationTime)*4-2)+1)*45
+            let y = (-abs(Double(animationTime)*4-peakTime)+1)*45
             return CGFloat(Double.maximum(y,0))
         }
     }
     var testYOffset: CGFloat{
         get{
-            let y = (-abs(Double(animationTime)*4-2)+1) * 0.16
+            let y = (-abs(Double(animationTime)*4-peakTime)+1) * 0.16
             return CGFloat(Double.maximum(y,0))
         }
     }

@@ -41,6 +41,60 @@ class DeviceDetailViewModel: ObservableObject {
         }
     }
     
+    func managedStatusView() -> AnyView {
+        var imageString = "questionmark.circle"
+        var textString = "Unknown"
+        
+        if let device = self.device {
+            if let isManaged = device.managed {
+                if isManaged {
+                    imageString = "checkmark"
+                    textString = "Managed"
+                }
+                else {
+                    imageString = "xmark"
+                    textString = "Not Managed"
+                }
+            }
+        }
+        return AnyView(
+            HStack {
+                Text("Management Status: ").frame(width: 180, alignment: .trailing)
+                HStack {
+                Image(systemName: imageString)
+                Text(textString)
+                }.frame(width: 180, alignment: .leading)
+            }
+        )
+    }
+    
+    func checkinStatusView() -> AnyView{
+        var imageString = "questionmark.circle"
+        var textString = "Unknown"
+        
+        if let device = self.device {
+            if let isCheckedIn = device.isCheckedIn {
+                if isCheckedIn {
+                    imageString = "tray.and.arrow.down.fill"
+                    textString = "Checked In"
+                }
+                else {
+                    imageString = "tray.and.arrow.up.fill"
+                    textString = "Checked Out"
+                }
+            }
+        }
+        return AnyView(
+            HStack {
+                Text("Checkin Status: ").frame(width: 180, alignment: .trailing)
+                HStack {
+                Image(systemName: imageString)
+                Text(textString)
+                }.frame(width: 180, alignment: .leading)
+            }
+        )
+    }
+    
     func wipeView(_ showModal: Binding<Bool>) -> AnyView? {
         if !searchedDevice.isiOS ||  device == nil {
             return nil

@@ -16,9 +16,12 @@ struct DeviceDetailView: View {
     var body: some View {
       VStack {
         VStack {
-            Text(deviceDetailViewModel.searchedDevice.name ?? "")
-            Text(deviceDetailViewModel.searchedDevice.serialNumber ?? "")
-            Text(deviceDetailViewModel.searchedDevice.assetTag ?? "")
+            Text(deviceDetailViewModel.searchedDevice.name ?? "").font(.title)
+            Text(deviceDetailViewModel.searchedDevice.serialNumber ?? "").font(.headline)
+            Text(deviceDetailViewModel.device?.assetTag ?? " ")
+                .padding(.bottom, 10.0)
+            deviceDetailViewModel.managedStatusView()
+            deviceDetailViewModel.checkinStatusView().padding(.bottom, 20.0)
         }
         HStack {
             deviceDetailViewModel.wipeView($deviceDetailViewModel.showModal)
@@ -36,9 +39,6 @@ struct DeviceDetailView: View {
         }
         Spacer()
       }
-//      .sheet(isPresented: self.$deviceDetailViewModel.showSheet) {
-//        self.deviceDetailViewModel.currentModal()
-//      }
       .onAppear {
         self.deviceDetailViewModel.updateDevice()
         }

@@ -12,18 +12,32 @@ import SwiftUI
 
 
 class ContentViewModel: ObservableObject{
-
+    private var maxDevices = 100
+    
     var credentials: Credentials = Credentials(username: "", password: "", server: URLComponents())
     var searchTasks: [URLSessionDataTask?] = [URLSessionDataTask?]()
     @Published var showSheet = true
+    
+    //todo: url encode for special characters
+    //todo: add slight delay so lookups don't happen while typing
     @Published var lookupText: String = "" {
         willSet(newValue){
             searchHandler(searchValue: "*" + newValue + "*")
         }
     }
-    @Published var deviceArray = Array<SearchedDevice>()
+    @Published private(set) var projectedDeviceArray = Array<SearchedDevice>()
+    var wrappedDeviceArray: Array<SearchedDevice> {
+        get {
+            return projectedDeviceArray
+        }
+        set(newValue) {
+            DispatchQueue.main.async {
+                self.projectedDeviceArray = (newValue.count > self.maxDevices) ? Array(newValue.dropLast(newValue.count - self.maxDevices)) : newValue
+            }
+        }
+    }
     
-    //this should really be an incrementer but its fine
+    //this should really be an incrementer and a calculated bool, but it's fine
     @Published var isLoading: Bool = false
     
     enum ActiveSheet {
@@ -140,9 +154,7 @@ class ContentViewModel: ObservableObject{
                 print("cancelled")
                 return
             }
-            DispatchQueue.main.async {
-                self.deviceArray = deviceList
-            }
+            self.wrappedDeviceArray = deviceList
         }
     }
 
@@ -168,9 +180,7 @@ class ContentViewModel: ObservableObject{
             return AnyView(LoginView() {
                 (credentials,devices) in
                 self.credentials = credentials
-                DispatchQueue.main.async {
-                    self.deviceArray = devices
-                }
+                self.wrappedDeviceArray = devices
             })
         
         case .scanner:

@@ -85,7 +85,7 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    public func login(completion: @escaping (Credentials,[SearchedDevice])->Void) {
+    public func login(_ trySave: Bool, completion: @escaping (Credentials,[SearchedDevice])->Void) {
         loggingIn = true
         DispatchQueue.global().async{
             let group = DispatchGroup()
@@ -132,12 +132,15 @@ class LoginViewModel: ObservableObject {
                 return
 
             }
-            do {
-                try self.syncronizeCredentials()
+            if trySave {
+                do {
+                    try self.syncronizeCredentials()
+                }
+                catch {
+                    print("Failed to save credentials with error: \(error)")
+                }
             }
-            catch {
-                print("Failed to save credentials with error: \(error)")
-            }
+
             completion(self.credentials,deviceList)
             
         }

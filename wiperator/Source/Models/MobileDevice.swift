@@ -147,10 +147,6 @@ extension MobileDevice {
             return nil
         }
         let myRequest = URLRequest(url: myUrl,basicCredentials:credentials, method: HTTPMethod.get,accept: ContentType.json)
-//        let dataTask = mobileSearchRequest(request: myRequest, session: session){
-//            (result) in
-//            completion(result)
-//        }
         let dataTask = session.fetchDecodedResponse(request: myRequest) {
             (result: Result<MobileDeviceSearch, Error>) in
             switch result {

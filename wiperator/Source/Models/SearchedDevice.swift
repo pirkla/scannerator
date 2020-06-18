@@ -70,10 +70,3 @@ extension SearchedDevice: Hashable {
         return lhs.uuid == rhs.uuid
     }
 }
-
-//enum OSValue {
-//    case computer
-//    case mobileDevice
-//}
-////
-

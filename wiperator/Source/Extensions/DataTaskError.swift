@@ -20,7 +20,7 @@ extension DataTaskError: LocalizedError {
         case .emptyData:
             return "No data found"
         case .requestFailure(let description, let statusCode):
-            return "Request failed due to error: \(description). Status Code: \(statusCode)"
+            return "Request failed due to error: \(description). \nStatus Code: \(statusCode)"
         default:
             return "Unknown"
         }

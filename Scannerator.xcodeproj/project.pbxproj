@@ -10,7 +10,6 @@
 		710DB8D72482E6260064B088 /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DB8D62482E6260064B088 /* KeychainError.swift */; };
 		710DB8DD248351D40064B088 /* CodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DB8DC248351D40064B088 /* CodeScannerView.swift */; };
 		711BED03248F1DEE00D15CC9 /* DataTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711BED02248F1DEE00D15CC9 /* DataTaskError.swift */; };
-		713F1A50248194CE00E24C40 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713F1A4F248194CE00E24C40 /* SearchModel.swift */; };
 		715E92192495B71600C0E1C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71FD3D55247F241E001CC553 /* Assets.xcassets */; };
 		7186D4A02492E804006249E9 /* ScannerErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7186D49F2492E804006249E9 /* ScannerErrorExtension.swift */; };
 		719C3F592496C7E700437D90 /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F582496C7E700437D90 /* Computer.swift */; };
@@ -62,7 +61,6 @@
 		710DB8D62482E6260064B088 /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
 		710DB8DC248351D40064B088 /* CodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScannerView.swift; sourceTree = "<group>"; };
 		711BED02248F1DEE00D15CC9 /* DataTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskError.swift; sourceTree = "<group>"; };
-		713F1A4F248194CE00E24C40 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		7186D49F2492E804006249E9 /* ScannerErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerErrorExtension.swift; sourceTree = "<group>"; };
 		7186D4A124932F44006249E9 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		719C3F582496C7E700437D90 /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				710DB8D62482E6260064B088 /* KeychainError.swift */,
-				713F1A4F248194CE00E24C40 /* SearchModel.swift */,
 				719E6605248485D50040ABD9 /* Credentials.swift */,
 				71FD3D87247F246B001CC553 /* Device.swift */,
 				719C3F582496C7E700437D90 /* Computer.swift */,
@@ -389,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				713F1A50248194CE00E24C40 /* SearchModel.swift in Sources */,
 				71C2B5572499CA92008BC6FA /* LogoView.swift in Sources */,
 				71C2B5562499B141008BC6FA /* DeviceDetailViewModel.swift in Sources */,
 				719C3F592496C7E700437D90 /* Computer.swift in Sources */,
