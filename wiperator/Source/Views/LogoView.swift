@@ -63,7 +63,8 @@ struct Parallelogramb: Shape{
     
     var triangleOffset: CGFloat{
         get {
-            let x = pow((Double(animationTime)*4)-2,5)
+            // x1 adjusts curve peak time
+            let x = pow((Double(animationTime)*3)-2,5)
             let y = CGFloat(Double.sech(x:x)*0.75)
             let bounce = Double.sechDeriv(x:x)
             return y + CGFloat(bounce * 0.8)

@@ -12,11 +12,12 @@ struct DeviceListView: View {
     var deviceArray: [SearchedDevice]
     var credentials: Credentials
     var setIsLoading: (Bool) -> Void
+    var setErrorDescription: (String) -> Void
     
     var body: some View {
         List {
             ForEach(deviceArray, id: \.self) { device in
-                NavigationLink(destination: DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials, setIsLoading: self.setIsLoading)))
+                NavigationLink(destination: DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials, setIsLoading: self.setIsLoading, setErrorDescription: self.setErrorDescription)))
                 {
                 DeviceRow(device: device, credentials: self.credentials)
                 }

@@ -48,6 +48,11 @@ class ContentViewModel: ObservableObject{
             self.isLoading = isLoading
         }
     }
+    func setErrorDescription(_ description: String){
+        DispatchQueue.main.async {
+            self.errorDescription = description
+        }
+    }
     
 
     func mobileDeviceSearch(searchText:String, completion: @escaping (Result<[SearchedDevice], Error>)-> Void)-> URLSessionDataTask? {

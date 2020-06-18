@@ -36,6 +36,9 @@ struct DeviceDetailView: View {
         }
         Spacer()
       }
+//      .sheet(isPresented: self.$deviceDetailViewModel.showSheet) {
+//        self.deviceDetailViewModel.currentModal()
+//      }
       .onAppear {
         self.deviceDetailViewModel.updateDevice()
         }

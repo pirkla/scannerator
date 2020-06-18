@@ -14,19 +14,20 @@ class DeviceDetailViewModel: ObservableObject {
     @Published var searchedDevice: SearchedDevice
     @Published var device: Device?
     @Published var deviceType: Device.Type
-//    @Published var isLoading: Bool = true
+    @Published var showSheet: Bool = false
     let credentials: Credentials
     var setIsLoading: (Bool) -> Void
+    var setErrorDescription: (String) -> Void
     
-    init(searchedDevice: SearchedDevice, deviceType: Device.Type, credentials: Credentials, setIsLoading: @escaping (Bool)->Void) {
+    init(searchedDevice: SearchedDevice, deviceType: Device.Type, credentials: Credentials, setIsLoading: @escaping (Bool)->Void, setErrorDescription: @escaping (String)->Void) {
         self.searchedDevice = searchedDevice
         self.deviceType = deviceType
         self.credentials = credentials
         self.setIsLoading = setIsLoading
+        self.setErrorDescription = setErrorDescription
     }
     
     func updateCheckin(_ checkinInt: Int) {
-        
         deviceType.updateRequest.self(baseURL: self.credentials.server,checkinInt: checkinInt, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
             self.updateDevice()
@@ -34,6 +35,7 @@ class DeviceDetailViewModel: ObservableObject {
             case .success(let deviceResponse):
                 print(String(data: deviceResponse, encoding: .utf8) as Any)
             case .failure(let error):
+                self.setErrorDescription(error.localizedDescription)
                 print(error)
             }
         }
@@ -65,6 +67,7 @@ class DeviceDetailViewModel: ObservableObject {
                             case .success(let deviceResponse):
                                 print(String(data: deviceResponse, encoding: .utf8) as Any)
                             case .failure(let error):
+                                self.setErrorDescription(error.localizedDescription)
                                 print(error)
                             }
                     }
@@ -122,9 +125,6 @@ class DeviceDetailViewModel: ObservableObject {
     }
 
     func updateDevice() {
-//        DispatchQueue.main.async {
-//            self.isLoading = true
-//        }
         self.setIsLoading(true)
         deviceType.deviceRequest.self(baseURL: self.credentials.server, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
@@ -132,14 +132,18 @@ class DeviceDetailViewModel: ObservableObject {
             case .success(let deviceResponse):
                 DispatchQueue.main.async {
                     self.setIsLoading(false)
-//                    self.isLoading = false
                     self.device = deviceResponse
                 }
             case .failure(let error):
+                self.setErrorDescription(error.localizedDescription)
                 print(error)
             }
         }
     }
 
+    
+    func currentModal() -> AnyView{
+        return AnyView(EmptyView())
+    }
     
 }
