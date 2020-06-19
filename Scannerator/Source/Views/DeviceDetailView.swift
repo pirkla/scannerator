@@ -16,12 +16,30 @@ struct DeviceDetailView: View {
     var body: some View {
       VStack {
         VStack {
-            Text(deviceDetailViewModel.searchedDevice.name ?? "").font(.title)
-            Text(deviceDetailViewModel.searchedDevice.serialNumber ?? "").font(.headline)
+            Button(action: {
+                guard let myUrl = self.deviceDetailViewModel.deviceUrl() else {
+                    self.deviceDetailViewModel.setErrorDescription("Could not find url")
+                    return
+                }
+                UIApplication.shared.open(myUrl)
+            }) {
+                HStack {
+                    Text(deviceDetailViewModel.searchedDevice.name ?? "").font(.title)
+//                    Image(systemName: "link")
+                }.padding(.all, 7.0)
+            }
+            .frame(alignment: .trailing)
+            .buttonStyle(BorderlessButtonStyle())
+            .background(Color.init("TextBackground"))
+            .cornerRadius(10)
+            
+            Text(deviceDetailViewModel.searchedDevice.serialNumber ?? "").font(.headline).padding(.top, 5)
             Text(deviceDetailViewModel.device?.assetTag ?? " ")
                 .padding(.bottom, 10.0)
+
             deviceDetailViewModel.managedStatusView()
             deviceDetailViewModel.checkinStatusView().padding(.bottom, 20.0)
+
         }
         HStack {
             deviceDetailViewModel.wipeView($deviceDetailViewModel.showModal)
@@ -43,6 +61,7 @@ struct DeviceDetailView: View {
         self.deviceDetailViewModel.updateDevice()
         }
     }
+    
 }
 
 //struct DeviceDetailView_Previews: PreviewProvider {

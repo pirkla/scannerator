@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "71FD3D61247F241E001CC553"
-               BuildableName = "ScanneratorTests.xctest"
-               BlueprintName = "ScanneratorTests"
-               ReferencedContainer = "container:Scannerator.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "71FD3D6C247F241E001CC553"
-               BuildableName = "ScanneratorUITests.xctest"
-               BlueprintName = "ScanneratorUITests"
-               ReferencedContainer = "container:Scannerator.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

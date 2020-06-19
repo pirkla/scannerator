@@ -5,7 +5,7 @@
 //  Created by Andrew Pirkl on 5/27/20.
 //  Copyright © 2020 Pirklator. All rights reserved.
 //
-
+import Foundation
 import SwiftUI
 
 struct DeviceListView: View {
@@ -19,7 +19,7 @@ struct DeviceListView: View {
             ForEach(deviceArray, id: \.self) { device in
                 NavigationLink(destination: DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials, setIsLoading: self.setIsLoading, setErrorDescription: self.setErrorDescription)))
                 {
-                DeviceRow(device: device, credentials: self.credentials)
+                    DeviceRow(device: device, credentials: self.credentials)
                 }
             }
         }
@@ -64,8 +64,8 @@ struct DeviceRow: View {
 
 }
 
-struct DeviceRow_Previews: PreviewProvider {
-    static var previews: some View {
-        DeviceRow(device: SearchedDevice(id: 1), credentials: Credentials(username: "", password: "", server: URLComponents()))
-    }
-}
+//struct DeviceRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DeviceRow(device: SearchedDevice(id: 1), credentials: Credentials(username: "", password: "", server: URLComponents()))
+//    }
+//}

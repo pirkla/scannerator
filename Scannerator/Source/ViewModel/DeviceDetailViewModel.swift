@@ -196,8 +196,10 @@ class DeviceDetailViewModel: ObservableObject {
     }
 
     
-    func currentModal() -> AnyView{
-        return AnyView(EmptyView())
+    func deviceUrl() -> URL? {
+        var urlComponents = credentials.server
+        urlComponents.path = searchedDevice.isiOS ? "/mobileDevices.html" : "/computers.html"
+        urlComponents.queryItems = [URLQueryItem(name: "id", value: String(searchedDevice.id))]
+        return urlComponents.url
     }
-    
 }

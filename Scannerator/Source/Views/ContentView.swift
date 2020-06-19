@@ -23,10 +23,7 @@ struct ContentView: View {
                 }.padding(.leading, 20.0).frame(width: 70, height: 80, alignment: .leading)
                 
                 LogoView(animate: $contentViewModel.isLoading).frame(width: 80, height: 80)
-                
-
             }
-            .padding(.bottom, 20.0)
             
             
             HStack() {
@@ -63,6 +60,8 @@ struct ContentView: View {
             #if targetEnvironment(macCatalyst)
             NavigationView { DeviceListView(deviceArray: self.contentViewModel.projectedDeviceArray, credentials: self.contentViewModel.credentials, setIsLoading: contentViewModel.setIsLoading(_:), setErrorDescription: contentViewModel.setErrorDescription(_ :))
             }.labelsHidden()
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
             #else
             NavigationView { DeviceListView(deviceArray: self.contentViewModel.projectedDeviceArray, credentials: self.contentViewModel.credentials, setIsLoading: contentViewModel.setIsLoading(_:), setErrorDescription: contentViewModel.setErrorDescription(_ :))
             }.navigationViewStyle(StackNavigationViewStyle())

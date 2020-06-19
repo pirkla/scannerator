@@ -74,7 +74,7 @@
 		71E1C276247F6BFE00113824 /* InfoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheetView.swift; sourceTree = "<group>"; };
 		71E1C278247F6E6A00113824 /* OptionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSheet.swift; sourceTree = "<group>"; };
 		71F70591248DEE760089387E /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
-		71FD3D4C247F241C001CC553 /* Wiperator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wiperator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		71FD3D4C247F241C001CC553 /* Scannerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scannerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FD3D4F247F241C001CC553 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71FD3D51247F241C001CC553 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		71FD3D53247F241C001CC553 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		71FD3D81247F2461001CC553 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		71FD3D82247F2461001CC553 /* URLRequestExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
 		71FD3D87247F246B001CC553 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		71FD3D89247F247F001CC553 /* wiperator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wiperator.entitlements; sourceTree = "<group>"; };
+		71FD3D89247F247F001CC553 /* scannerator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = scannerator.entitlements; sourceTree = "<group>"; };
 		71FD3D8D247F4155001CC553 /* DeviceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListView.swift; sourceTree = "<group>"; };
 		71FD3D8F247F465F001CC553 /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		71FD3D92247F46A7001CC553 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		71FD3D43247F241C001CC553 = {
 			isa = PBXGroup;
 			children = (
-				71FD3D4E247F241C001CC553 /* wiperator */,
+				71FD3D4E247F241C001CC553 /* Scannerator */,
 				71FD3D65247F241E001CC553 /* wiperatorTests */,
 				71FD3D70247F241E001CC553 /* wiperatorUITests */,
 				71FD3D4D247F241C001CC553 /* Products */,
@@ -157,26 +157,26 @@
 		71FD3D4D247F241C001CC553 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				71FD3D4C247F241C001CC553 /* Wiperator.app */,
+				71FD3D4C247F241C001CC553 /* Scannerator.app */,
 				71FD3D62247F241E001CC553 /* ScanneratorTests.xctest */,
 				71FD3D6D247F241E001CC553 /* ScanneratorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		71FD3D4E247F241C001CC553 /* wiperator */ = {
+		71FD3D4E247F241C001CC553 /* Scannerator */ = {
 			isa = PBXGroup;
 			children = (
 				710DB8DB248351C20064B088 /* External */,
 				710DB8D82482E86C0064B088 /* Source */,
-				71FD3D89247F247F001CC553 /* wiperator.entitlements */,
+				71FD3D89247F247F001CC553 /* scannerator.entitlements */,
 				71FD3D55247F241E001CC553 /* Assets.xcassets */,
 				71FD3D5A247F241E001CC553 /* LaunchScreen.storyboard */,
 				71FD3D5D247F241E001CC553 /* Info.plist */,
 				71FD3D57247F241E001CC553 /* Preview Content */,
 				71FD3D8F247F465F001CC553 /* URLBuilder.swift */,
 			);
-			path = wiperator;
+			path = Scannerator;
 			sourceTree = "<group>";
 		};
 		71FD3D57247F241E001CC553 /* Preview Content */ = {
@@ -272,7 +272,7 @@
 			);
 			name = Scannerator;
 			productName = wiperator;
-			productReference = 71FD3D4C247F241C001CC553 /* Wiperator.app */;
+			productReference = 71FD3D4C247F241C001CC553 /* Scannerator.app */;
 			productType = "com.apple.product-type.application";
 		};
 		71FD3D61247F241E001CC553 /* ScanneratorTests */ = {
@@ -578,22 +578,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = wiperator/wiperator.entitlements;
+				CODE_SIGN_ENTITLEMENTS = scannerator/scannerator.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"wiperator/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"scannerator/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B77FF9LPA;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = wiperator/Info.plist;
+				INFOPLIST_FILE = scannerator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pirklator.scannerator;
-				PRODUCT_NAME = Wiperator;
+				PRODUCT_NAME = Scannerator;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
@@ -606,22 +606,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = wiperator/wiperator.entitlements;
+				CODE_SIGN_ENTITLEMENTS = scannerator/scannerator.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"wiperator/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"scannerator/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B77FF9LPA;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = wiperator/Info.plist;
+				INFOPLIST_FILE = scannerator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pirklator.scannerator;
-				PRODUCT_NAME = Wiperator;
+				PRODUCT_NAME = Scannerator;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
