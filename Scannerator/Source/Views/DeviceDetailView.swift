@@ -32,6 +32,7 @@ struct DeviceDetailView: View {
             .buttonStyle(BorderlessButtonStyle())
             .background(Color.init("TextBackground"))
             .cornerRadius(10)
+            .shadow(color:.black, radius: 3,x: 1, y: 1)
             
             Text(deviceDetailViewModel.searchedDevice.serialNumber ?? "").font(.headline).padding(.top, 5)
             Text(deviceDetailViewModel.device?.assetTag ?? " ")
@@ -43,12 +44,14 @@ struct DeviceDetailView: View {
         }
         HStack {
             deviceDetailViewModel.wipeView($deviceDetailViewModel.showModal)
+                .shadow(color:.black, radius: 3,x: 1, y: 1)
                 .scaleEffect(showWipe ? 1 : 0)
                 .animation(.easeInOut)
                 .onAppear {
                 self.showWipe = true
             }
             deviceDetailViewModel.checkedInView()
+                .shadow(color:.black, radius: 3,x: 1, y: 1)
                 .scaleEffect(showCheckin ? 1 : 0)
                 .animation(.easeInOut)
                 .onAppear {

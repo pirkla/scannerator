@@ -115,8 +115,10 @@ class DeviceDetailViewModel: ObservableObject {
                     guard let device = self.device else {
                         return
                     }
+                    self.setIsLoading(true)
                     self.deviceType.wipeRequest.self(baseURL: self.credentials.server, id: device.id, passcode: nil, credentials: self.credentials.basicCreds, session: URLSession.shared) {
                             result in
+                            self.setIsLoading(false)
                             switch result {
                             case .success(let deviceResponse):
                                 print(String(data: deviceResponse, encoding: .utf8) as Any)

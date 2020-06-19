@@ -48,9 +48,13 @@ struct ContentView: View {
                             .frame(width: 30, height:30)
                     }
                     TextField("", text:  $contentViewModel.lookupText)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                     #else
                     TextField("", text:  $contentViewModel.lookupText)
-                    .padding(.leading, 6.0)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .padding(.leading, 6.0)
                     #endif
                 }
                 .frame(idealWidth: 250.0,maxWidth: 350)

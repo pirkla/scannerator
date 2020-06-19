@@ -26,6 +26,7 @@ struct LoginView: View {
                 TextField("https://sample.jamfcloud.com", text: $loginViewModel.enteredURL)
                     .textContentType(.URL)
                     .disableAutocorrection(true)
+                    .autocapitalization(.none)
                 }
                 .padding(.horizontal, 7.0)
                 .frame(idealWidth: 150.0 ,maxWidth: 350,idealHeight: 25,maxHeight: 25)
@@ -38,6 +39,7 @@ struct LoginView: View {
                 HStack {
                     TextField("", text: $loginViewModel.networkID)
                     .disableAutocorrection(true)
+                    .autocapitalization(.none)
                 }
                 .padding(.horizontal, 7.0)
                 .frame(idealWidth: 150.0 ,maxWidth: 350,idealHeight: 25,maxHeight: 25)
@@ -82,7 +84,7 @@ struct LoginView: View {
                 .fixedSize()
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
-
+                .shadow(color:.black, radius: 3,x: 1, y: 1)
             }
             HStack {
                 Text(loginViewModel.serverError)
@@ -95,17 +97,16 @@ struct LoginView: View {
         .onAppear {
             self.loginViewModel.loggingIn = true
             self.loginViewModel.loadCredentials()
-
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.7){
-                if self.loginViewModel.readConfig() {
-                    self.loginViewModel.login(false) {
-                        (credentials, devices) in
-                        self.completion(credentials, devices)
-                        DispatchQueue.main.async {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
+            if self.loginViewModel.readConfig() {
+                self.loginViewModel.login(false) {
+                    (credentials, devices) in
+                    self.completion(credentials, devices)
+                    DispatchQueue.main.async {
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.7){
                 self.loginViewModel.loggingIn = false
             }
 
