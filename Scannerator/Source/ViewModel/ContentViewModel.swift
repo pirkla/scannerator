@@ -18,13 +18,24 @@ class ContentViewModel: ObservableObject{
     var searchTasks: [URLSessionDataTask?] = [URLSessionDataTask?]()
     @Published var showSheet = true
     
-    //todo: url encode for special characters
-    //todo: add slight delay so lookups don't happen while typing
-    @Published var lookupText: String = "" {
-        willSet(newValue){
-            searchHandler(searchValue: "*" + newValue + "*")
+
+    private var typing: Int = 0 {
+        willSet(newValue) {
+            if newValue == 0 {
+                searchHandler(searchValue: "*" + lookupText + "*")
+            }
         }
     }
+    
+    @Published var lookupText: String = "" {
+        willSet {
+            self.typing += 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.typing -= 1
+            }
+        }
+    }
+    
     @Published private(set) var projectedDeviceArray = Array<SearchedDevice>()
     var wrappedDeviceArray: Array<SearchedDevice> {
         get {
@@ -56,6 +67,17 @@ class ContentViewModel: ObservableObject{
             activeSheet = .errorView
         }
     }
+    
+    init(credentials: Credentials?) {
+        guard let myCredentials = credentials else {
+            self.showSheet = true
+            return
+        }
+        self.credentials = myCredentials
+        self.showSheet = false
+        self.lookupText = ""
+    }
+    
     
     func setIsLoading(_ isLoading: Bool){
         DispatchQueue.main.async {
@@ -98,7 +120,7 @@ class ContentViewModel: ObservableObject{
     }
     
     private func searchHandler(searchValue: String) {
-        self.isLoading = true
+        setIsLoading(true)
         for task in searchTasks {
             task?.cancel()
         }
@@ -137,9 +159,7 @@ class ContentViewModel: ObservableObject{
             })
             
             group.wait()
-            DispatchQueue.main.async {
-                self.isLoading = false
-            }
+            self.setIsLoading(false)
             if !allowMobile && !allowComputer {
                 if let lastError = lastError as? URLError {
                     if lastError.errorCode == -999

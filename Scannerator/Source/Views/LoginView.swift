@@ -70,7 +70,7 @@ struct LoginView: View {
             Spacer().frame(height:30)
             HStack(alignment:.top) {
                 Button(action: {
-                    self.loginViewModel.login(true) {
+                    self.loginViewModel.login() {
                         (credentials, devices) in
                         self.completion(credentials, devices)
                         DispatchQueue.main.async {
@@ -91,25 +91,11 @@ struct LoginView: View {
                     .padding(.all, 10.0)
                     .multilineTextAlignment(.center)
             }
-
+            Spacer().frame(height:100)
         }
         .disabled(self.loginViewModel.loggingIn)
         .onAppear {
-            self.loginViewModel.loggingIn = true
             self.loginViewModel.loadCredentials()
-            if self.loginViewModel.readConfig() {
-                self.loginViewModel.login(false) {
-                    (credentials, devices) in
-                    self.completion(credentials, devices)
-                    DispatchQueue.main.async {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.7){
-                self.loginViewModel.loggingIn = false
-            }
-
         }
     }
 }

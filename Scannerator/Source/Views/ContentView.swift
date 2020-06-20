@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var contentViewModel = ContentViewModel()
+    @ObservedObject var contentViewModel: ContentViewModel
     
     var body: some View {
         VStack() {
@@ -82,6 +82,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(contentViewModel: ContentViewModel(credentials: nil))
     }
 }

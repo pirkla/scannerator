@@ -29,7 +29,6 @@ struct DeviceDetailView: View {
                 }.padding(.all, 7.0)
             }
             .frame(alignment: .trailing)
-            .buttonStyle(BorderlessButtonStyle())
             .background(Color.init("TextBackground"))
             .cornerRadius(10)
             .shadow(color:.black, radius: 3,x: 1, y: 1)
