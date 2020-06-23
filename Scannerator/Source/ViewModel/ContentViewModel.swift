@@ -70,7 +70,7 @@ class ContentViewModel: ObservableObject{
     
     init(credentials: Credentials?) {
         guard let myCredentials = credentials else {
-            self.showSheet = true
+            self.activeSheet = .login
             return
         }
         self.credentials = myCredentials
@@ -204,6 +204,7 @@ class ContentViewModel: ObservableObject{
             })
         
         case .scanner:
+            #if !targetEnvironment(macCatalyst)
             return AnyView(CodeScannerView(codeTypes: [.qr,.aztec,.code128,.code39,.code39Mod43,.code93,.dataMatrix,.ean13,.ean8,.interleaved2of5,.itf14,.pdf417,.upce], simulatedData: "testdata") {
                 result in
                 self.showSheet = false
@@ -215,6 +216,12 @@ class ContentViewModel: ObservableObject{
                     print(error.localizedDescription)
                 }
             })
+            #else
+            return AnyView(ImagePicker(){
+                image in
+                print(image)
+            })
+            #endif
         case .errorView:
             return AnyView(InfoSheetView(title: "An error occurred", description: self.errorDescription, image: Image(systemName: "exclamationmark.octagon.fill")))
         }

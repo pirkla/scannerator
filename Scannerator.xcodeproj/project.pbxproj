@@ -11,6 +11,9 @@
 		710DB8DD248351D40064B088 /* CodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DB8DC248351D40064B088 /* CodeScannerView.swift */; };
 		711BED03248F1DEE00D15CC9 /* DataTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711BED02248F1DEE00D15CC9 /* DataTaskError.swift */; };
 		715E92192495B71600C0E1C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71FD3D55247F241E001CC553 /* Assets.xcassets */; };
+		717F636924A035B1009F0E51 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717F636824A035B1009F0E51 /* ImagePicker.swift */; };
+		717F636B24A05554009F0E51 /* ScanError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717F636A24A05554009F0E51 /* ScanError.swift */; };
+		717F636D24A06502009F0E51 /* ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717F636C24A06502009F0E51 /* ImageOrientation.swift */; };
 		7186D4A02492E804006249E9 /* ScannerErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7186D49F2492E804006249E9 /* ScannerErrorExtension.swift */; };
 		719C3F592496C7E700437D90 /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F582496C7E700437D90 /* Computer.swift */; };
 		719C3F5B2496CE9700437D90 /* MobileDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719C3F5A2496CE9700437D90 /* MobileDevice.swift */; };
@@ -61,6 +64,9 @@
 		710DB8D62482E6260064B088 /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
 		710DB8DC248351D40064B088 /* CodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScannerView.swift; sourceTree = "<group>"; };
 		711BED02248F1DEE00D15CC9 /* DataTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskError.swift; sourceTree = "<group>"; };
+		717F636824A035B1009F0E51 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		717F636A24A05554009F0E51 /* ScanError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanError.swift; sourceTree = "<group>"; };
+		717F636C24A06502009F0E51 /* ImageOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOrientation.swift; sourceTree = "<group>"; };
 		7186D49F2492E804006249E9 /* ScannerErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerErrorExtension.swift; sourceTree = "<group>"; };
 		7186D4A124932F44006249E9 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		719C3F582496C7E700437D90 /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
@@ -140,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				710DB8DC248351D40064B088 /* CodeScannerView.swift */,
+				717F636824A035B1009F0E51 /* ImagePicker.swift */,
+				717F636A24A05554009F0E51 /* ScanError.swift */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -213,6 +221,7 @@
 				71FD3D82247F2461001CC553 /* URLRequestExtension.swift */,
 				711BED02248F1DEE00D15CC9 /* DataTaskError.swift */,
 				7186D49F2492E804006249E9 /* ScannerErrorExtension.swift */,
+				717F636C24A06502009F0E51 /* ImageOrientation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -401,6 +410,7 @@
 				71FD3D88247F246B001CC553 /* Device.swift in Sources */,
 				71E1C279247F6E6A00113824 /* OptionSheet.swift in Sources */,
 				71FD3D84247F2461001CC553 /* StringExtension.swift in Sources */,
+				717F636924A035B1009F0E51 /* ImagePicker.swift in Sources */,
 				719E6604248481ED0040ABD9 /* LoginViewModel.swift in Sources */,
 				71FD3D85247F2461001CC553 /* URLRequestExtension.swift in Sources */,
 				71FD3D90247F465F001CC553 /* URLBuilder.swift in Sources */,
@@ -410,6 +420,8 @@
 				71FD3D93247F46A7001CC553 /* ContentViewModel.swift in Sources */,
 				71FD3D8E247F4155001CC553 /* DeviceListView.swift in Sources */,
 				71FD3D54247F241C001CC553 /* ContentView.swift in Sources */,
+				717F636B24A05554009F0E51 /* ScanError.swift in Sources */,
+				717F636D24A06502009F0E51 /* ImageOrientation.swift in Sources */,
 				719C3F5B2496CE9700437D90 /* MobileDevice.swift in Sources */,
 				71E1C277247F6BFE00113824 /* InfoSheetView.swift in Sources */,
 			);

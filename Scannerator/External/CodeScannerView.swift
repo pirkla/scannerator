@@ -23,9 +23,9 @@ import SwiftUI
 /// a closure that will be called when scanning has finished. This will be sent the string that was detected or a `ScanError`.
 /// For testing inside the simulator, set the `simulatedData` property to some test data you want to send back.
 public struct CodeScannerView: UIViewControllerRepresentable {
-    public enum ScanError: Error {
-        case badInput, badOutput, cancelled
-    }
+//    public enum ScanError: Error {
+//        case badInput, badOutput, cancelled
+//    }
 
     
 
@@ -139,20 +139,9 @@ public struct CodeScannerView: UIViewControllerRepresentable {
         var captureSession: AVCaptureSession!
         var previewLayer: AVCaptureVideoPreviewLayer!
         var delegate: ScannerCoordinator?
-//        var cancelButton: UIButton!
-        
 
         override public func viewDidLoad() {
             super.viewDidLoad()
-
-//            cancelButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
-//            cancelButton.backgroundColor = .gray
-//            cancelButton.setTitle("Cancel", for: .normal)
-//            cancelButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-//            self.view.addSubview(cancelButton)
-//            self.view.bringSubviewToFront(cancelButton)
-//            cancelButton.frame.origin.x = -100
-//            
             
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(updateOrientation),
@@ -194,7 +183,6 @@ public struct CodeScannerView: UIViewControllerRepresentable {
         
         @objc func buttonAction(sender: UIButton!) {
             delegate?.didFail(reason: .cancelled)
-//            print("Cancelled Scan")
         }
 
         override public func viewWillLayoutSubviews() {
@@ -213,8 +201,6 @@ public struct CodeScannerView: UIViewControllerRepresentable {
             previewLayer.frame = view.layer.bounds
             previewLayer.videoGravity = .resizeAspectFill
             view.layer.addSublayer(previewLayer)
-//            cancelButton.frame.origin.y = 10
-//            cancelButton.frame.origin.x = previewLayer.frame.width - cancelButton.frame.width - 10
             updateOrientation()
             captureSession.startRunning()
         }

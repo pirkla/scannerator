@@ -30,7 +30,7 @@ struct ContentView: View {
                 Text("Search")
                     .frame(width: 60.0)
                 HStack {
-                    #if !targetEnvironment(macCatalyst)
+//                    #if !targetEnvironment(macCatalyst)
                     Button(action: {
                         self.contentViewModel.checkCameraAccess() {
                             (result) in
@@ -50,12 +50,12 @@ struct ContentView: View {
                     TextField("", text:  $contentViewModel.lookupText)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
-                    #else
-                    TextField("", text:  $contentViewModel.lookupText)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .padding(.leading, 6.0)
-                    #endif
+//                    #else
+//                    TextField("", text:  $contentViewModel.lookupText)
+//                        .disableAutocorrection(true)
+//                        .autocapitalization(.none)
+//                        .padding(.leading, 6.0)
+//                    #endif
                 }
                 .frame(idealWidth: 250.0,maxWidth: 350)
                 .background(Color.init("TextBackground"))
