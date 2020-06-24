@@ -24,6 +24,7 @@ struct ContentView: View {
                 
                 LogoView(animate: $contentViewModel.isLoading).frame(width: 80, height: 80)
             }
+            .drawingGroup()
             
             
             HStack() {

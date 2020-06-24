@@ -18,45 +18,68 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     init(completion: @escaping (Result<String, ScanError>)->Void) {
         self.completion = completion
+        
     }
-    
-//    func startDetection() {
-//       let request = VNDetectBarcodesRequest(completionHandler: self.detectHandler)
-//        request.symbologies = [.Code39] // or use .QR, etc
-//       self.requests = [request]
-//    }
-//
-//    func detectHandler(request: VNRequest, error: Error?) {
-//        guard let observations = request.results else {
-//            //print("no result")
-//            return
-//        }
-//        let results = observations.map({$0 as? VNBarcodeObservation})
-//        for result in results {
-//              print(result!.payloadStringValue!)
-//        }
-//    }
-    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        if !UIImagePickerController.isSourceTypeAvailable(.camera){
-            picker.sourceType = .photoLibrary
-        } else {
-            picker.sourceType = .camera
+        
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            completion(.failure(.noCamera))
+            return picker
         }
+        picker.sourceType = .camera
+        
+        picker.showsCameraControls = false
+        _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
+            picker.takePicture()
+        }
+        
+//        var myView = UIView()
+//        myView.frame = (picker.cameraOverlayView?.frame)!
+//        picker.cameraOverlayView = myView
+        picker.cameraOverlayView = guideForCameraOverlay()
+
+
+    
         return picker
     }
     
 
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-
+//        uiViewController.showsCameraControls = false
+//        _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
+//        uiViewController.takePicture()
+//        }
     }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
+    func found(code: String) {
+        self.completion(.success(code))
+    }
+
+    func didFail(reason: ScanError) {
+        self.completion(.failure(reason))
+    }
+    
+    func dismiss(){
+        DispatchQueue.main.async {
+            self.presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    
+    func guideForCameraOverlay() -> UIView {
+        let guide = UIView(frame: UIScreen.main.fullScreenSquare())
+        guide.backgroundColor = UIColor.clear
+        guide.layer.borderWidth = 4
+        guide.layer.borderColor = UIColor.red.cgColor
+        guide.isUserInteractionEnabled = false
+        return guide
+    }
 }
 
 class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -70,6 +93,7 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
         guard let observations = request.results else {
             print("no result")
             self.parent.completion(.failure(.badOutput))
+            self.parent.dismiss()
             return
         }
         let results = observations.map({$0 as? VNBarcodeObservation})
@@ -77,14 +101,19 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
               print(result!.payloadStringValue!)
             print("somethiong")
             parent.completion(.success(result!.payloadStringValue ?? ""))
+            self.parent.dismiss()
+            return
         }
         print(results)
-        self.parent.presentationMode.wrappedValue.dismiss()
     }
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        self.parent.completion(.failure(.cancelled))
+//        self.parent.dismiss()
+//    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let qrcodeImg = info[.originalImage] as? UIImage {
-  
+                
             let imageRequestHandler = VNImageRequestHandler(cgImage: qrcodeImg.cgImage!,
                                                             orientation: CGImagePropertyOrientation(qrcodeImg.imageOrientation), options: [:])
             let barcodeRequest = VNDetectBarcodesRequest(completionHandler: detectHandler)
@@ -97,21 +126,42 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
                 } catch let error as NSError {
                     print("Failed to perform image request: \(error)")
                     self.parent.completion(.failure(.badOutput))
-//                    self.presentAlert("Image Request Failed", error: error)
-                    self.parent.presentationMode.wrappedValue.dismiss()
+                    self.parent.dismiss()
                     return
                 }
             }
-//
-//            if qrCodeLink.count < 1 {
-//                parent.completion(.failure(.badOutput))
-//            }else{
-//                parent.completion(.success(qrCodeLink))
-//            }
         }
         else{
             print("Something went wrong")
         }
-//        parent.presentationMode.wrappedValue.dismiss()
+    }
+}
+
+
+
+extension UIScreen {
+    func fullScreenSquare() -> CGRect {
+        var hw:CGFloat = 0
+        var isLandscape = false
+        if UIScreen.main.bounds.size.width < UIScreen.main.bounds.size.height {
+        hw = UIScreen.main.bounds.size.width
+    }
+    else {
+        isLandscape = true
+        hw = UIScreen.main.bounds.size.height
+    }
+
+    var x:CGFloat = 0
+    var y:CGFloat = 0
+    if isLandscape {
+        x = (UIScreen.main.bounds.size.width / 2) - (hw / 2)
+    }
+    else {
+        y = (UIScreen.main.bounds.size.height / 2) - (hw / 2)
+    }
+        return CGRect(x: x, y: y, width: hw, height: hw)
+    }
+    func isLandscape() -> Bool {
+        return UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height
     }
 }
