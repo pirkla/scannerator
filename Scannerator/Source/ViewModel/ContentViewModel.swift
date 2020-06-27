@@ -12,13 +12,19 @@ import SwiftUI
 
 
 class ContentViewModel: ObservableObject{
+    // set the number of devices that can show in the navigation list view - if hundreds/thousands are returned rendering the list is problematic
     private var maxDevices = 100
     
     var credentials: Credentials = Credentials(username: "", password: "", server: URLComponents())
+    
+    // store search tasks so they can be cancelled if needed
     var searchTasks: [URLSessionDataTask?] = [URLSessionDataTask?]()
+    
+    // publish if sheet modal should show - used to show login & error description sheets
     @Published var showSheet = true
     
-
+    // typing and lookupText together handle if a lookup sould be made
+    // calculate if the search field is currently being typed in or not. If yes then no then run a search
     private var typing: Int = 0 {
         willSet(newValue) {
             if newValue == 0 {
@@ -26,7 +32,7 @@ class ContentViewModel: ObservableObject{
             }
         }
     }
-    
+    // receive input from lookup bar and incrememnt typing as changed, then after a slight delay decrement
     @Published var lookupText: String = "" {
         willSet {
             self.typing += 1
@@ -36,6 +42,7 @@ class ContentViewModel: ObservableObject{
         }
     }
     
+    // projected and wrapped value used to make deviceArray published but only for a limited number of devices. If the number of devices published is too high rendering is problematic. Calculated with maxDevices
     @Published private(set) var projectedDeviceArray = Array<SearchedDevice>()
     var wrappedDeviceArray: Array<SearchedDevice> {
         get {
@@ -54,6 +61,8 @@ class ContentViewModel: ObservableObject{
     enum ActiveSheet {
        case login, scanner, errorView
     }
+    
+    // when the active sheet is set set showsheet to true to display newly chosen sheet
     var activeSheet: ActiveSheet = .login {
         willSet {
             DispatchQueue.main.async {
@@ -62,12 +71,14 @@ class ContentViewModel: ObservableObject{
         }
     }
     
+    // when an error description is set set active sheet to show the error view with the new description
     private var errorDescription: String = "Unknown" {
         willSet {
             activeSheet = .errorView
         }
     }
     
+    // if given credentials assume a managed app config was used, don't open the login view, and run a device search
     init(credentials: Credentials?) {
         guard let myCredentials = credentials else {
             self.activeSheet = .login
@@ -119,6 +130,7 @@ class ContentViewModel: ObservableObject{
         }
     }
     
+    // request all mobile and computer devices by search value, and cancel old data tasks if they're running. If one is blank assume success and users's privileges are only for the set that was returned
     private func searchHandler(searchValue: String) {
         setIsLoading(true)
         for task in searchTasks {
@@ -194,6 +206,7 @@ class ContentViewModel: ObservableObject{
         }
     }
     
+    // calculate which modal should be showing when showModal is true
     func currentModal() -> AnyView {
         switch activeSheet {
         case .login:
@@ -217,10 +230,11 @@ class ContentViewModel: ObservableObject{
                 }
             })
             #else
-            return AnyView(ImagePicker(){
-                image in
-                print(image)
-            })
+//            return AnyView(ImagePicker(){
+//                image in
+//                print(image)
+//            })
+            return AnyView(EmptyView())
             #endif
         case .errorView:
             return AnyView(InfoSheetView(title: "An error occurred", description: self.errorDescription, image: Image(systemName: "exclamationmark.octagon.fill")))

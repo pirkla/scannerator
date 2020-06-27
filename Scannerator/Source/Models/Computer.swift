@@ -65,7 +65,7 @@ extension Computer: Device {
         return nil
     }
     
-    // currently hidden - Jamf School doesn't have parity for this(api is broken) and it can be too powerful
+    // currently hidden
     static func wipeRequest(baseURL: URLComponents,id: Int,passcode: Int?, credentials: String, session: URLSession, completion: @escaping (Result<Data,Error>)-> Void){
         var urlComponents = baseURL
         guard let passcode = passcode else {

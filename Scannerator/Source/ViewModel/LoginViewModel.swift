@@ -13,7 +13,7 @@ class LoginViewModel: ObservableObject {
     @Published var apiKey: String = ""
     @Published var enteredURL: String = "" {
         willSet(newValue){
-            baseURL = URLBuilder.BuildURL(baseURL: newValue)
+            baseURL = URLBuilder.BuildJamfURL(baseURL: newValue)
         }
     }
     var baseURL: URLComponents = URLComponents()
@@ -87,6 +87,7 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    // for login search all computers and mobile devices. If one is blank assume success and users's privileges are only for the set that was returned
     public func login(completion: @escaping (Credentials,[SearchedDevice])->Void) {
         loggingIn = true
         DispatchQueue.global().async{

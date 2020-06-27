@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Create the SwiftUI view that provides the window contents.
+        // Create the SwiftUI view that provides the window contents, checking for a managed app config on creation.
         let contentView = ContentView(contentViewModel: ContentViewModel(credentials: readConfig()))
 
         // Use a UIHostingController as window root view controller.
@@ -59,13 +59,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    /**
+     Check for a managed app config and return credentials if found. Return nil if partially missing or not found.
+     */
     public func readConfig() -> Credentials?{
         if let managedConf = UserDefaults.standard.object(forKey: "com.apple.configuration.managed") as? [String:Any?] {
             
             guard let urlString = managedConf["serverURL"] as? String else {
                 return nil
             }
-            let serverUrl = URLBuilder.BuildURL(baseURL: urlString)
+            let serverUrl = URLBuilder.BuildJamfURL(baseURL: urlString)
             
             guard let networkId = managedConf["username"] as? String else {
                 return nil
@@ -79,7 +82,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let urlString = Bundle.main.object(forInfoDictionaryKey: "serverURL") as? String else {
             return nil
         }
-        let serverUrl = URLBuilder.BuildURL(baseURL: urlString)
+        let serverUrl = URLBuilder.BuildJamfURL(baseURL: urlString)
         
         guard let networkId = Bundle.main.object(forInfoDictionaryKey: "username") as? String else {
             return nil

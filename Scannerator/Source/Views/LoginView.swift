@@ -18,6 +18,8 @@ struct LoginView: View {
     
     var body: some View {
         VStack() {
+            
+            // url stack
             HStack(){
                 Text("URL")
                     .multilineTextAlignment(.leading)
@@ -33,6 +35,8 @@ struct LoginView: View {
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
             }
+            
+            // username stack
             HStack() {
                 Text("Username")
                     .frame(width: 85, alignment: .trailing)
@@ -46,6 +50,8 @@ struct LoginView: View {
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
             }
+            
+            // password stack
             HStack() {
                 Text("Password")
                     .multilineTextAlignment(.leading)
@@ -58,6 +64,8 @@ struct LoginView: View {
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
             }
+            
+            // save password stack
             HStack() {
                 Toggle(isOn: $loginViewModel.saveCredentials) {
                 EmptyView()
@@ -86,11 +94,14 @@ struct LoginView: View {
                 .cornerRadius(10)
                 .shadow(color:.black, radius: 3,x: 1, y: 1)
             }
+            
+            // error text stack - blank unless a login error occurs
             HStack {
                 Text(loginViewModel.serverError)
                     .padding(.all, 10.0)
                     .multilineTextAlignment(.center)
             }
+            // spacer to make login button slightly higher - the keyboard covers it up on smaller screens otherwise
             Spacer().frame(height:100)
         }
         .disabled(self.loginViewModel.loggingIn)

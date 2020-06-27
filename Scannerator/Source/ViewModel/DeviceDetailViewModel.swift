@@ -16,7 +16,11 @@ class DeviceDetailViewModel: ObservableObject {
     @Published var deviceType: Device.Type
     @Published var showSheet: Bool = false
     let credentials: Credentials
+    
+    // function to control loading icon in parent
     var setIsLoading: (Bool) -> Void
+    
+    //function to control error sheet view in parent
     var setErrorDescription: (String) -> Void
     
     init(searchedDevice: SearchedDevice, deviceType: Device.Type, credentials: Credentials, setIsLoading: @escaping (Bool)->Void, setErrorDescription: @escaping (String)->Void) {
@@ -27,6 +31,7 @@ class DeviceDetailViewModel: ObservableObject {
         self.setErrorDescription = setErrorDescription
     }
     
+    // update checkin status for device - should be 0 or 1
     func updateCheckin(_ checkinInt: Int) {
         deviceType.updateRequest.self(baseURL: self.credentials.server,checkinInt: checkinInt, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
             result in
@@ -41,6 +46,7 @@ class DeviceDetailViewModel: ObservableObject {
         }
     }
     
+    // calculate managed status icon and text
     func managedStatusView() -> AnyView {
         var imageString = "questionmark.circle"
         var textString = "Unknown"
@@ -68,6 +74,7 @@ class DeviceDetailViewModel: ObservableObject {
         )
     }
     
+    // calculate checkin status icon and text
     func checkinStatusView() -> AnyView{
         var imageString = "questionmark.circle"
         var textString = "Unknown"
@@ -95,6 +102,7 @@ class DeviceDetailViewModel: ObservableObject {
         )
     }
     
+    // calculate if wipe button should show and set up confirmation modal if clicked - should only show for iOS
     func wipeView(_ showModal: Binding<Bool>) -> AnyView? {
         if !searchedDevice.isiOS ||  device == nil {
             return nil
@@ -135,7 +143,7 @@ class DeviceDetailViewModel: ObservableObject {
         )
     }
 
-
+    // calculate which checkin button to show
     func checkedInView() -> AnyView?{
         let checkInbutton = Button(action: {
             self.updateCheckin(1)
@@ -180,6 +188,7 @@ class DeviceDetailViewModel: ObservableObject {
         }
     }
 
+    // update device info
     func updateDevice() {
         self.setIsLoading(true)
         deviceType.deviceRequest.self(baseURL: self.credentials.server, id: self.searchedDevice.id, credentials: self.credentials.basicCreds, session: URLSession.shared) {
@@ -197,11 +206,11 @@ class DeviceDetailViewModel: ObservableObject {
         }
     }
 
-    
+    //calculate the url for use with the device name button
     func deviceUrl() -> URL? {
         var urlComponents = credentials.server
         urlComponents.path = searchedDevice.isiOS ? "/mobileDevices.html" : "/computers.html"
-        urlComponents.queryItems = [URLQueryItem(name: "id", value: String(searchedDevice.id))]
+        urlComponents.queryItems = [URLQueryItem(name: "id", value: String(searchedDevice.id)),URLQueryItem(name: "o", value: "r")]
         return urlComponents.url
     }
 }

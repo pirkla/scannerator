@@ -15,7 +15,9 @@ struct DeviceDetailView: View {
     
     var body: some View {
       VStack {
+        // stack for device info
         VStack {
+            //button to show device name and link to device's details page in Jamf Pro
             Button(action: {
                 guard let myUrl = self.deviceDetailViewModel.deviceUrl() else {
                     self.deviceDetailViewModel.setErrorDescription("Could not find url")
@@ -25,7 +27,6 @@ struct DeviceDetailView: View {
             }) {
                 HStack {
                     Text(deviceDetailViewModel.searchedDevice.name ?? "").font(.title)
-//                    Image(systemName: "link")
                 }.padding(.all, 7.0)
             }
             .frame(alignment: .trailing)
@@ -33,15 +34,21 @@ struct DeviceDetailView: View {
             .cornerRadius(10)
             .shadow(color:.black, radius: 3,x: 1, y: 1)
             
+            // show serial number
             Text(deviceDetailViewModel.searchedDevice.serialNumber ?? "").font(.headline).padding(.top, 5)
+            // show asset tag
             Text(deviceDetailViewModel.device?.assetTag ?? " ")
                 .padding(.bottom, 10.0)
 
+            // calculate managment status view
             deviceDetailViewModel.managedStatusView()
+            // calculate checkin status view
             deviceDetailViewModel.checkinStatusView().padding(.bottom, 20.0)
-
         }
+        
+        // action button stack
         HStack {
+            // calcualate wipe button
             deviceDetailViewModel.wipeView($deviceDetailViewModel.showModal)
                 .shadow(color:.black, radius: 3,x: 1, y: 1)
                 .scaleEffect(showWipe ? 1 : 0)
@@ -49,6 +56,7 @@ struct DeviceDetailView: View {
                 .onAppear {
                 self.showWipe = true
             }
+            // calculte checkin button
             deviceDetailViewModel.checkedInView()
                 .shadow(color:.black, radius: 3,x: 1, y: 1)
                 .scaleEffect(showCheckin ? 1 : 0)
@@ -57,18 +65,12 @@ struct DeviceDetailView: View {
                 self.showCheckin = true
             }
         }
+        // spacer to make information show at the top - it's just prettier that way
         Spacer()
       }
       .onAppear {
+        // on view appear update device to pull all information
         self.deviceDetailViewModel.updateDevice()
         }
     }
-    
 }
-
-//struct DeviceDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: SearchedDevice(id: 1), deviceType: Computer.self, credentials: Credentials()))
-//    }
-//}
-

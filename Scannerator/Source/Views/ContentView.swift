@@ -14,6 +14,7 @@ struct ContentView: View {
     var body: some View {
         VStack() {
 
+            // login button and logo view stack
             HStack() {
                 Spacer()
                 Button(action: {
@@ -23,15 +24,15 @@ struct ContentView: View {
                 }.padding(.leading, 20.0).frame(width: 70, height: 80, alignment: .leading)
                 
                 LogoView(animate: $contentViewModel.isLoading).frame(width: 80, height: 80)
-            }
-            .drawingGroup()
+            }.drawingGroup()
             
-            
+            // search bar stack
             HStack() {
                 Text("Search")
                     .frame(width: 60.0)
                 HStack {
-//                    #if !targetEnvironment(macCatalyst)
+                    // if not macCatalyst show barcode scanner button
+                    #if !targetEnvironment(macCatalyst)
                     Button(action: {
                         self.contentViewModel.checkCameraAccess() {
                             (result) in
@@ -51,22 +52,26 @@ struct ContentView: View {
                     TextField("", text:  $contentViewModel.lookupText)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
-//                    #else
-//                    TextField("", text:  $contentViewModel.lookupText)
-//                        .disableAutocorrection(true)
-//                        .autocapitalization(.none)
-//                        .padding(.leading, 6.0)
-//                    #endif
+                    // if mac catalyst show just the search input field
+                    #else
+                    TextField("", text:  $contentViewModel.lookupText)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .padding(.leading, 6.0)
+                    #endif
                 }
                 .frame(idealWidth: 250.0,maxWidth: 350)
                 .background(Color.init("TextBackground"))
                 .cornerRadius(10)
             }
+            
+            // if macCatalyst show default navigation view style
             #if targetEnvironment(macCatalyst)
             NavigationView { DeviceListView(deviceArray: self.contentViewModel.projectedDeviceArray, credentials: self.contentViewModel.credentials, setIsLoading: contentViewModel.setIsLoading(_:), setErrorDescription: contentViewModel.setErrorDescription(_ :))
             }.labelsHidden()
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            // else use StacKNavigationViewStyle
             #else
             NavigationView { DeviceListView(deviceArray: self.contentViewModel.projectedDeviceArray, credentials: self.contentViewModel.credentials, setIsLoading: contentViewModel.setIsLoading(_:), setErrorDescription: contentViewModel.setErrorDescription(_ :))
             }.navigationViewStyle(StackNavigationViewStyle())

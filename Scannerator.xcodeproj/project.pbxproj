@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		710DAFB224A2D0250045447C /* ImagePicker2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DAFB124A2D0250045447C /* ImagePicker2.swift */; };
 		710DB8D72482E6260064B088 /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DB8D62482E6260064B088 /* KeychainError.swift */; };
 		710DB8DD248351D40064B088 /* CodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DB8DC248351D40064B088 /* CodeScannerView.swift */; };
 		711BED03248F1DEE00D15CC9 /* DataTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711BED02248F1DEE00D15CC9 /* DataTaskError.swift */; };
@@ -62,7 +61,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		710DAFB124A2D0250045447C /* ImagePicker2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker2.swift; sourceTree = "<group>"; };
 		710DB8D62482E6260064B088 /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
 		710DB8DC248351D40064B088 /* CodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScannerView.swift; sourceTree = "<group>"; };
 		711BED02248F1DEE00D15CC9 /* DataTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskError.swift; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 				710DB8DC248351D40064B088 /* CodeScannerView.swift */,
 				717F636824A035B1009F0E51 /* ImagePicker.swift */,
 				717F636A24A05554009F0E51 /* ScanError.swift */,
-				710DAFB124A2D0250045447C /* ImagePicker2.swift */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -406,7 +403,6 @@
 				719C3F5F2497247000437D90 /* ExtensionAttribute.swift in Sources */,
 				71FD3D83247F2461001CC553 /* URLSessionExtension.swift in Sources */,
 				71F70592248DEE760089387E /* DeviceDetailView.swift in Sources */,
-				710DAFB224A2D0250045447C /* ImagePicker2.swift in Sources */,
 				711BED03248F1DEE00D15CC9 /* DataTaskError.swift in Sources */,
 				7186D4A02492E804006249E9 /* ScannerErrorExtension.swift in Sources */,
 				71FD3D50247F241C001CC553 /* AppDelegate.swift in Sources */,
@@ -598,7 +594,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"scannerator/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B77FF9LPA;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -627,7 +623,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"scannerator/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B77FF9LPA;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;

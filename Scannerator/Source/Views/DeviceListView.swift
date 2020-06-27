@@ -11,31 +11,26 @@ import SwiftUI
 struct DeviceListView: View {
     var deviceArray: [SearchedDevice]
     var credentials: Credentials
+    // function to control loading icon in parent view
     var setIsLoading: (Bool) -> Void
+    // function to control error sheet view in parent view
     var setErrorDescription: (String) -> Void
     
     var body: some View {
         List {
+            // foreach is used so we can calculate by hash instead of identifiable. This prevents some issues with new rows thinking they're old rows and not updating the child view
             ForEach(deviceArray, id: \.self) { device in
                 NavigationLink(destination: DeviceDetailView(deviceDetailViewModel: DeviceDetailViewModel(searchedDevice: device, deviceType: device.deviceType, credentials: self.credentials, setIsLoading: self.setIsLoading, setErrorDescription: self.setErrorDescription)))
                 {
-                    DeviceRow(device: device, credentials: self.credentials)
+                    DeviceRow(device: device)
                 }
             }
         }
     }
 }
 
-//struct DeviceListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeviceListView(deviceArray: [SearchedDevice](), credentials: Credentials(username: "", password: "", server: URLComponents()))
-//    }
-//}
-
-
 struct DeviceRow: View {
     var device: SearchedDevice
-    var credentials: Credentials
     
     var body: some View {
         HStack {
@@ -44,14 +39,8 @@ struct DeviceRow: View {
             Text(device.serialNumber ?? "")
         }
     }
-    func CheckedInImage(_ isCheckedIn: Bool) -> Image {
-        if isCheckedIn {
-            return Image(systemName: "tray.and.arrow.down.fill")
-        }
-        else {
-            return Image(systemName: "tray.and.arrow.up.fill")
-        }
-    }
+
+    // calculate image to use for device's icon
     func DeviceImage(_ isiOS: Bool) -> AnyView {
         if isiOS {
             return AnyView(Image(systemName: "rectangle")
@@ -63,9 +52,3 @@ struct DeviceRow: View {
     }
 
 }
-
-//struct DeviceRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeviceRow(device: SearchedDevice(id: 1), credentials: Credentials(username: "", password: "", server: URLComponents()))
-//    }
-//}

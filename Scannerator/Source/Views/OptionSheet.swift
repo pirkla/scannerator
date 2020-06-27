@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+/**
+Sheet view to display information and escape a bool based on user input
+*/
 struct OptionSheet: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -25,7 +28,10 @@ struct OptionSheet: View {
       Group {
         Text(title)
         Text(description)
+        
+        // stack for true and false buttons
         VStack {
+            // return true button
             Button(action: {
                 self.completion(true)
                self.presentationMode.wrappedValue.dismiss()
@@ -40,6 +46,7 @@ struct OptionSheet: View {
             }
             .cornerRadius(10)
             
+            // return false button
             Button(action: {
                 self.completion(false)
                self.presentationMode.wrappedValue.dismiss()

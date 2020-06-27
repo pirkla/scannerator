@@ -37,7 +37,7 @@ class URLBuilder {
      - parameters:
         - baseURL: The base url of the instance. Ex: url.jamfcloud.com
      */
-    static func BuildJamfURL(baseURL: String) -> URL?
+    static func BuildJamfURL(baseURL: String) -> URLComponents
     {
         var myURL = baseURL.replacingOccurrences(of: "https:", with: "").replacingOccurrences(of: "http:", with: "").replacingOccurrences(of: "/", with: "")
         var port: Int?
@@ -51,6 +51,6 @@ class URLBuilder {
         components.host = myURL
         components.port = port
 
-        return components.url
+        return components
     }
 }
