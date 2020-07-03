@@ -1,5 +1,6 @@
 # Scannerator
-Get the iOS version on the app store: https://apps.apple.com/app/id1519467297#?platform=iphone
+Get the iOS version on the app store: https://apps.apple.com/app/id1519467297#?platform=iphone   
+Get the latest macOS version: https://github.com/pirkla/scannerator/releases
 The User Guide: https://wiki.pirklator.com/en/scannerator/guide
 
 Scannerator is an app designed to simplify management of individual devices enrolled in Jamf Pro. Devices can be searched for using the search bar, or on iOS devices barcodes or qr codes can be scanned to auto-fill the search bar. Only minimal information and actions are currently available, but each device's entry's device name can be clicked to open the record directly in Jamf Pro.
